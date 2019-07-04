@@ -5,9 +5,10 @@ import ApplicationStyles from 'App/Theme/ApplicationStyles'
 export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
+    alignItems: 'stretch',
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
-    margin: 30,
   },
   error: {
     ...Fonts.style.normal,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import ExampleActions from 'App/Stores/Example/Actions'
 import { liveInEurope } from 'App/Stores/Example/Selectors'
-import Style from './ExampleScreenStyle'
+import Style from './EmotionsScreenStyle'
 import { Images } from 'App/Theme'
 
 /**
@@ -19,9 +19,52 @@ const instructions = Platform.select({
   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
 })
 
-class ExampleScreen extends React.Component {
+const emotions = [
+  {
+    name: 'angry',
+    color: 'red',
+  },
+  {
+    name: 'jealous',
+    color: 'orange',
+  },
+  {
+    name: 'fearful',
+    color: 'yellow',
+  },
+  {
+    name: 'content',
+    color: 'green',
+  },
+  {
+    name: 'sad',
+    color: 'blue',
+  },
+  {
+    name: 'disgusted',
+    color: 'indigo',
+  },
+  {
+    name: 'contempt',
+    color: 'violet',
+  },
+]
+
+class EmotionsScreen extends React.Component {
   componentDidMount() {
     this.props.fetchUser()
+  }
+
+  renderEmotionList = () => {
+    return emotions.map((emotion) => {
+      return (
+        <View key={emotion.name} style={{height: 50, backgroundColor:emotion.color}}>
+          <Text style={Style.result}>
+            {emotion.name}
+          </Text>
+        </View>
+      )
+    })
   }
 
   render() {
@@ -30,34 +73,14 @@ class ExampleScreen extends React.Component {
         {this.props.userIsLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
-          <View>
-            <View style={Style.logoContainer}>
-              <Image style={Style.logo} source={Images.logo} resizeMode={'contain'} />
-            </View>
-            <Text style={Style.text}>To get started, edit App.js</Text>
-            <Text style={Style.instructions}>{instructions}</Text>
-            {this.props.userErrorMessage ? (
-              <Text style={Style.error}>{this.props.userErrorMessage}</Text>
-            ) : (
-              <View>
-                <Text style={Style.result}>
-                  {"I'm a fake user, my name is "}
-                  {this.props.user.name}
-                </Text>
-                <Text style={Style.result}>
-                  {this.props.liveInEurope ? 'I live in Europe !' : "I don't live in Europe."}
-                </Text>
-              </View>
-            )}
-            <Button onPress={this.props.fetchUser} title="Refresh" />
-          </View>
+          this.renderEmotionList()
         )}
       </View>
     )
   }
 }
 
-ExampleScreen.propTypes = {
+EmotionsScreen.propTypes = {
   user: PropTypes.object,
   userIsLoading: PropTypes.bool,
   userErrorMessage: PropTypes.string,
@@ -79,4 +102,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ExampleScreen)
+)(EmotionsScreen)

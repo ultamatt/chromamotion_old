@@ -6,6 +6,7 @@ import ExampleActions from 'App/Stores/Example/Actions'
 import { liveInEurope } from 'App/Stores/Example/Selectors'
 import Style from './ExampleScreenStyle'
 import { Images } from 'App/Theme'
+import { createStackNavigator, createAppContainer } from 'react-navigation'
 
 /**
  * This is an example of a container component.
@@ -50,6 +51,10 @@ class ExampleScreen extends React.Component {
               </View>
             )}
             <Button onPress={this.props.fetchUser} title="Refresh" />
+            <Button
+              title="How are you feeling?"
+              onPress={() => this.props.navigation.navigate('EmotionsScreen')}
+            />
           </View>
         )}
       </View>
