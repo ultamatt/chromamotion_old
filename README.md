@@ -6,6 +6,7 @@ A project in React native to help users identify, track, and share their feeling
 
 ### Emotions Picker
 [ ] Create emotion picker page. Needs to be scrollable.
+  [ ] Find a better way to match colors to feelings?
 [ ] Make emotion component that can be selected or deselected
 [ ] Make a rollup bar at the top that shows the current spectrum of emotions
 [ ] Make a way to save these selections

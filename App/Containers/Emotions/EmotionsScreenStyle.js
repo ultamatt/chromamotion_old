@@ -2,18 +2,24 @@ import { StyleSheet } from 'react-native'
 import Fonts from 'App/Theme/Fonts'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+
 export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
-    alignItems: 'stretch',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
   },
   error: {
     ...Fonts.style.normal,
     color: 'red',
     marginBottom: 5,
+    textAlign: 'center',
+  },
+  header: {
+    ...Fonts.style.h1,
+    marginBottom: 10,
+    paddingTop: getStatusBarHeight(),
     textAlign: 'center',
   },
   instructions: {
@@ -36,19 +42,8 @@ export default StyleSheet.create({
     marginBottom: 25,
     width: '100%',
   },
-  result: {
-    ...Fonts.style.normal,
-    marginBottom: 5,
-    textAlign: 'center',
-  },
   text: {
     ...Fonts.style.normal,
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  title: {
-    ...Fonts.style.h2,
-    marginBottom: 10,
     textAlign: 'center',
   },
 })
