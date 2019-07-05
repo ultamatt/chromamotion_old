@@ -253,9 +253,7 @@ class EmotionsScreen extends React.Component {
         </ScrollView>
         <View style={Style.buttonContainer}>
         <Button
-          onPress={() => {
-            Alert.alert('You tapped the button!');
-          }}
+          onPress={() => this.props.navigation.navigate('MainScreen') }
           style={Style.saveButton}
           title="Save Check-In"
         />
