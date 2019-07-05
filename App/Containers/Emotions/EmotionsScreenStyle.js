@@ -5,6 +5,9 @@ import ApplicationStyles from 'App/Theme/ApplicationStyles'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 
 export default StyleSheet.create({
+  buttonContainer: {
+    marginBottom: 25,
+  },
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,
@@ -17,7 +20,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   header: {
-    ...Fonts.style.h1,
+    ...Fonts.style.h2,
     marginBottom: 10,
     paddingTop: getStatusBarHeight(),
     textAlign: 'center',
@@ -42,8 +45,12 @@ export default StyleSheet.create({
     marginBottom: 25,
     width: '100%',
   },
+  saveButton: {
+    ...Fonts.style.h3,
+    alignItems: 'center',
+  },
   text: {
-    ...Fonts.style.normal,
+    ...Fonts.style.h3,
     textAlign: 'center',
   },
 })
