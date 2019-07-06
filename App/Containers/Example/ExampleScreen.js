@@ -1,5 +1,5 @@
 import React from 'react'
-import { PARSE_SERVER_URL, PARSE_SERVER_CLIENT_KEY, PARSE_SERVER_APP_ID } from 'react-native-dotenv'
+import { PARSE_URL, PARSE_CLIENT_KEY, PARSE_APP_ID } from 'react-native-dotenv'
 import { Platform, Text, View, Button, ActivityIndicator, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -30,8 +30,8 @@ class ExampleScreen extends React.Component {
 
   componentDidMount() {
     this.props.fetchUser()
-    Parse.initialize(PARSE_SERVER_APP_ID, PARSE_SERVER_CLIENT_KEY)
-    Parse.serverURL = PARSE_SERVER_URL
+    Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
+    Parse.serverURL = PARSE_URL
     const CheckIn = Parse.Object.extend('CheckIn')
     const checkIn = new CheckIn()
 
