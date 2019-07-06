@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
+import { Platform, Text, View, Button, ActivityIndicator, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import ExampleActions from 'App/Stores/Example/Actions'
@@ -7,6 +7,7 @@ import { liveInEurope } from 'App/Stores/Example/Selectors'
 import Style from './ExampleScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import Parse from 'parse/react-native'
 
 /**
  * This is an example of a container component.
@@ -21,8 +22,34 @@ const instructions = Platform.select({
 })
 
 class ExampleScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    Parse.setAsyncStorage(AsyncStorage)
+  }
+
   componentDidMount() {
     this.props.fetchUser()
+    Parse.initialize(
+      'p3aVNkesQRm31gkbUiAcNNezVhNjILOCTndQp6Qm',
+      'PUoNyH2YL2ni2xDA7IlF1pVMdlmT4Ln6CVpOjkOQ'
+    )
+    Parse.serverURL = 'https://pg-app-kw93x9ud2qhybjr64jjtecqyw9d7cu.scalabl.cloud/1/'
+    const CheckIn = Parse.Object.extend('CheckIn')
+    const checkIn = new CheckIn()
+
+    checkIn.set('emotionArray', ['anger', 'jealousy'])
+
+    checkIn.save().then(
+      (checkIn) => {
+        // Execute any logic that should take place after the object is saved.
+        alert('New object created with objectId: ' + checkIn.id)
+      },
+      (error) => {
+        // Execute any logic that should take place if the save fails.
+        // error is a Parse.Error with an error code and message.
+        alert('Failed to create new object, with error code: ' + error.message)
+      }
+    )
   }
 
   render() {
