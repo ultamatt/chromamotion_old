@@ -8,26 +8,26 @@ import { createActions } from 'reduxsauce'
  * Action names are turned to SNAKE_CASE into the `Types` variable. This can be used
  * to listen to actions:
  *
- * - to trigger reducers to update the state, for example in App/Stores/Example/Reducers.js
+ * - to trigger reducers to update the state, for example in App/Stores/User/Reducers.js
  * - to trigger sagas, for example in App/Sagas/index.js
  *
  * Actions can be dispatched:
  *
  * - in React components using `dispatch(...)`, for example in App/App.js
- * - in sagas using `yield put(...)`, for example in App/Sagas/ExampleSaga.js
+ * - in sagas using `yield put(...)`, for example in App/Sagas/UserSaga.js
  *
  * @see https://github.com/infinitered/reduxsauce#createactions
  */
 const { Types, Creators } = createActions({
   // Fetch user informations
-  fetchUser: null,
+  fetchCheckIn: null,
   // The operation has started and is loading
-  fetchUserLoading: null,
-  // User informations were successfully fetched
-  fetchUserSuccess: ['user'],
+  fetchCheckInLoading: null,
+  // CheckIn informations were successfully fetched
+  fetchCheckInSuccess: ['checkIn'],
   // An error occurred
-  fetchUserFailure: ['errorMessage'],
+  fetchCheckInFailure: ['errorMessage'],
 })
 
-export const ExampleTypes = Types
+export const CheckInTypes = Types
 export default Creators

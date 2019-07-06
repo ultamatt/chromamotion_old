@@ -3,9 +3,9 @@ import { PARSE_URL, PARSE_CLIENT_KEY, PARSE_APP_ID } from 'react-native-dotenv'
 import { Platform, Text, View, Button, ActivityIndicator, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
-import ExampleActions from 'App/Stores/Example/Actions'
-import { liveInEurope } from 'App/Stores/Example/Selectors'
-import Style from './ExampleScreenStyle'
+import UserActions from 'App/Stores/User/Actions'
+import { liveInEurope } from 'App/Stores/User/Selectors'
+import Style from './UserScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Parse from 'parse/react-native'
@@ -22,7 +22,7 @@ const instructions = Platform.select({
   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
 })
 
-class ExampleScreen extends React.Component {
+class UserScreen extends React.Component {
   constructor(props) {
     super(props)
     Parse.setAsyncStorage(AsyncStorage)
@@ -87,7 +87,7 @@ class ExampleScreen extends React.Component {
   }
 }
 
-ExampleScreen.propTypes = {
+UserScreen.propTypes = {
   user: PropTypes.object,
   userIsLoading: PropTypes.bool,
   userErrorMessage: PropTypes.string,
@@ -96,17 +96,17 @@ ExampleScreen.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.example.user,
-  userIsLoading: state.example.userIsLoading,
-  userErrorMessage: state.example.userErrorMessage,
+  user: state.user,
+  userIsLoading: state.userIsLoading,
+  userErrorMessage: state.userErrorMessage,
   liveInEurope: liveInEurope(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(ExampleActions.fetchUser()),
+  fetchUser: () => dispatch(UserActions.fetchUser()),
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ExampleScreen)
+)(UserScreen)

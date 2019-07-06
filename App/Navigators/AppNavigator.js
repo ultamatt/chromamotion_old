@@ -1,7 +1,7 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 
 import EmotionsScreen from 'App/Containers/Emotions/EmotionsScreen'
-import ExampleScreen from 'App/Containers/Example/ExampleScreen'
+import CheckInScreen from 'App/Containers/CheckIn/CheckInScreen'
 import SplashScreen from 'App/Containers/SplashScreen/SplashScreen'
 
 /**
@@ -14,9 +14,9 @@ const StackNavigator = createStackNavigator(
     // Create the application routes here (the key is the route name, the value is the target screen)
     // See https://reactnavigation.org/docs/en/stack-navigator.html#routeconfigs
     SplashScreen: SplashScreen,
-    // The main application screen is our "ExampleScreen". Feel free to replace it with your
+    // The main application screen is our "CheckInScreen". Feel free to replace it with your
     // own screen and remove the example.
-    MainScreen: ExampleScreen,
+    MainScreen: CheckInScreen,
     EmotionsScreen: EmotionsScreen,
   },
   {
