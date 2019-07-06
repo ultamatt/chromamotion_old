@@ -1,53 +1,62 @@
 import { StyleSheet } from 'react-native'
 import Fonts from 'App/Theme/Fonts'
+import Colors from 'App/Theme/Colors'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
 export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
-    margin: 30,
     flex: 1,
     justifyContent: 'center',
   },
-  title: {
-    ...Fonts.style.h2,
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  text: {
+  error: {
     ...Fonts.style.normal,
-    textAlign: 'center',
+    color: Colors.error,
     marginBottom: 5,
+    textAlign: 'center',
   },
   instructions: {
     ...Fonts.style.normal,
-    textAlign: 'center',
-    marginBottom: 5,
+    color: Colors.text,
     fontStyle: 'italic',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  link: {
+    ...Fonts.style.normal,
+    color: Colors.info,
+    marginBottom: 5,
+    textAlign: 'center',
   },
   loading: {
     ...Fonts.style.normal,
-    textAlign: 'center',
     marginBottom: 5,
+    textAlign: 'center',
+  },
+  logo: {
+    height: '100%',
+    width: '100%',
+  },
+  logoContainer: {
+    height: 300,
+    marginBottom: 25,
+    width: '100%',
   },
   result: {
     ...Fonts.style.normal,
-    textAlign: 'center',
     marginBottom: 5,
+    textAlign: 'center',
   },
-  error: {
+  text: {
     ...Fonts.style.normal,
-    textAlign: 'center',
+    color: Colors.text,
     marginBottom: 5,
-    color: 'red',
+    textAlign: 'center',
   },
-  logoContainer: {
-    width: '100%',
-    height: 300,
-    marginBottom: 25,
-  },
-  logo: {
-    width: '100%',
-    height: '100%',
+  title: {
+    ...Fonts.style.h2,
+    color: Colors.warning,
+    marginBottom: 10,
+    textAlign: 'center',
   },
 })

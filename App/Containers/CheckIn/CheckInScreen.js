@@ -32,22 +32,22 @@ class CheckInScreen extends React.Component {
     // this.props.fetchUser()
     Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
     Parse.serverURL = PARSE_URL
-    const CheckIn = Parse.Object.extend('CheckIn')
-    const checkIn = new CheckIn()
-
-    checkIn.set('emotionArray', ['anger', 'jealousy'])
-
-    checkIn.save().then(
-      (checkIn) => {
-        // Execute any logic that should take place after the object is saved.
-        alert('New object created with objectId: ' + checkIn.id)
-      },
-      (error) => {
-        // Execute any logic that should take place if the save fails.
-        // error is a Parse.Error with an error code and message.
-        alert('Failed to create new object, with error code: ' + error.message)
-      }
-    )
+    // const CheckIn = Parse.Object.extend('CheckIn')
+    // const checkIn = new CheckIn()
+    //
+    // checkIn.set('emotionArray', ['anger', 'jealousy'])
+    //
+    // checkIn.save().then(
+    //   (checkIn) => {
+    //     // Execute any logic that should take place after the object is saved.
+    //     alert('New object created with objectId: ' + checkIn.id)
+    //   },
+    //   (error) => {
+    //     // Execute any logic that should take place if the save fails.
+    //     // error is a Parse.Error with an error code and message.
+    //     alert('Failed to create new object, with error code: ' + error.message)
+    //   }
+    // )
   }
 
   render() {
@@ -81,6 +81,7 @@ class CheckInScreen extends React.Component {
               // <Button onPress={this.props.fetchUser} title="Refresh" />
             }
             <Button
+              style={Style.link}
               title="How are you feeling?"
               onPress={() => this.props.navigation.navigate('EmotionsScreen')}
             />

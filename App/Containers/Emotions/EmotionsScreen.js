@@ -18,7 +18,7 @@ const emotions = [
     color: 'rgb(255,106,255)',
     selected:false
   },{
-    name:'Irratable',
+    name:'Irritable',
     color: 'rgb(250,123,255)',
     selected:false
   },{

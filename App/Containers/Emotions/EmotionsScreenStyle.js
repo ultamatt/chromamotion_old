@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import Fonts from 'App/Theme/Fonts'
+import Colors from 'App/Theme/Colors'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
@@ -15,18 +16,20 @@ export default StyleSheet.create({
   },
   error: {
     ...Fonts.style.normal,
-    color: 'red',
+    color: Colors.error,
     marginBottom: 5,
     textAlign: 'center',
   },
   header: {
     ...Fonts.style.h2,
+    color: Colors.primary,
     marginBottom: 10,
     paddingTop: getStatusBarHeight(),
     textAlign: 'center',
   },
   instructions: {
     ...Fonts.style.normal,
+    color: Colors.text,
     fontStyle: 'italic',
     marginBottom: 5,
     textAlign: 'center',
@@ -51,6 +54,7 @@ export default StyleSheet.create({
   },
   text: {
     ...Fonts.style.h3,
+    color: Colors.alternate,
     textAlign: 'center',
   },
 })
