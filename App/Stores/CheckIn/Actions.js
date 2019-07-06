@@ -27,6 +27,14 @@ const { Types, Creators } = createActions({
   fetchCheckInSuccess: ['checkIn'],
   // An error occurred
   fetchCheckInFailure: ['errorMessage'],
+
+  postCheckIn: null,
+  // The operation has started and is loading
+  postCheckInLoading: null,
+  // CheckIn informations were successfully posted
+  postCheckInSuccess: ['checkIn'],
+  // An error occurred
+  postCheckInFailure: ['errorMessage'],
 })
 
 export const CheckInTypes = Types

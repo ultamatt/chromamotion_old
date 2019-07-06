@@ -186,7 +186,7 @@ const emotions = [
   }
 ]
 
-export default class EmotionsScreen extends React.Component {
+class EmotionsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -237,13 +237,35 @@ export default class EmotionsScreen extends React.Component {
           )}
         </ScrollView>
         <View style={Style.buttonContainer}>
-        <Button
-          onPress={() => this.props.navigation.navigate('MainScreen') }
-          style={Style.saveButton}
-          title="Save Check-In"
-        />
+          <Button
+            onPress={() => this.props.navigation.navigate('MainScreen') }
+            style={Style.saveButton}
+            title="Save Check-In"
+          />
         </View>
       </View>
     )
   }
 }
+
+EmotionsScreen.propTypes = {
+  checkIn: PropTypes.object,
+  checkInIsLoading: PropTypes.bool,
+  checkInErrorMessage: PropTypes.string,
+  postCheckIn: PropTypes.func,
+}
+
+const mapStateToProps = (state) => ({
+  checkIn: state.checkIn,
+  checkInIsLoading: state.checkInIsLoading,
+  checkInErrorMessage: state.checkInErrorMessage,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  postCheckIn: () => dispatch(CheckInActions.postCheckIn()),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EmotionsScreen)

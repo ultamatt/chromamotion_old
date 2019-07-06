@@ -4,6 +4,9 @@ import Colors from 'App/Theme/Colors'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
 export default StyleSheet.create({
+  buttonContainer: {
+    marginBottom: 25,
+  },
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,
@@ -46,6 +49,10 @@ export default StyleSheet.create({
     ...Fonts.style.normal,
     marginBottom: 5,
     textAlign: 'center',
+  },
+  signUpLoginButton: {
+    ...Fonts.style.h3,
+    alignItems: 'center',
   },
   text: {
     ...Fonts.style.normal,

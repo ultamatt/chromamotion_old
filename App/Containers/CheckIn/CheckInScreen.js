@@ -57,9 +57,6 @@ class CheckInScreen extends React.Component {
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <View>
-            <View style={Style.logoContainer}>
-              <Image style={Style.logo} source={Images.logo} resizeMode={'contain'} />
-            </View>
             <Text style={Style.text}>To get started, edit App.js</Text>
             <Text style={Style.instructions}>{instructions}</Text>
             {
@@ -85,6 +82,13 @@ class CheckInScreen extends React.Component {
               title="How are you feeling?"
               onPress={() => this.props.navigation.navigate('EmotionsScreen')}
             />
+            <View style={Style.buttonContainer}>
+              <Button
+                onPress={() => this.props.navigation.navigate('UserScreen')}
+                style={Style.signUpLoginButton}
+                title="Sign Up or Log In"
+              />
+            </View>
           </View>
         )}
       </View>
@@ -96,7 +100,7 @@ CheckInScreen.propTypes = {
   checkIn: PropTypes.object,
   checkInIsLoading: PropTypes.bool,
   checkInErrorMessage: PropTypes.string,
-  fetchUser: PropTypes.func,
+  fetchCheckIn: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -106,7 +110,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(CheckInActions.fetchUser()),
+  fetchCheckIn: () => dispatch(CheckInActions.fetchCheckIn()),
 })
 
 export default connect(
