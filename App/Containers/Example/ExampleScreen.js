@@ -1,4 +1,5 @@
 import React from 'react'
+import { PARSE_SERVER_URL, PARSE_SERVER_CLIENT_KEY, PARSE_SERVER_APP_ID } from 'react-native-dotenv'
 import { Platform, Text, View, Button, ActivityIndicator, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -29,11 +30,8 @@ class ExampleScreen extends React.Component {
 
   componentDidMount() {
     this.props.fetchUser()
-    Parse.initialize(
-      'p3aVNkesQRm31gkbUiAcNNezVhNjILOCTndQp6Qm',
-      'PUoNyH2YL2ni2xDA7IlF1pVMdlmT4Ln6CVpOjkOQ'
-    )
-    Parse.serverURL = 'https://pg-app-kw93x9ud2qhybjr64jjtecqyw9d7cu.scalabl.cloud/1/'
+    Parse.initialize(PARSE_SERVER_APP_ID, PARSE_SERVER_CLIENT_KEY)
+    Parse.serverURL = PARSE_SERVER_URL
     const CheckIn = Parse.Object.extend('CheckIn')
     const checkIn = new CheckIn()
 
