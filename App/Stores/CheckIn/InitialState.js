@@ -3,8 +3,10 @@
  */
 export const INITIAL_STATE = {
   checkIn: {},
-  checkIns: [],
+  checkIns: {
+    fuck: 'ass',
+  },
   emotions: [],
-  checkInIsLoading: false,
-  checkInErrorMessage: null,
+  checkInIsLoading: true,
+  checkInErrorMessage: 'Sample error',
 }

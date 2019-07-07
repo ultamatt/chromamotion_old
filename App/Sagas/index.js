@@ -16,8 +16,8 @@ export default function* root() {
     // Call `fetchUser()` when a `FETCH_USER` action is triggered
     takeLatest(UserTypes.FETCH_USER, fetchUser),
 
-    takeLatest(CheckInTypes.FETCH_CHECK_IN, fetchCheckIn),
     takeLatest(CheckInTypes.LIST_CHECK_INS, listCheckIns),
+    takeLatest(CheckInTypes.FETCH_CHECK_IN, fetchCheckIn),
     takeLatest(CheckInTypes.POST_CHECK_IN, postCheckIn),
   ])
 }

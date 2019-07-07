@@ -23,7 +23,7 @@ export const listCheckInsSuccess = (state, { checkIns }) => ({
 
 export const listCheckInsFailure = (state, { errorMessage }) => ({
   ...state,
-  checkIns: [],
+  checkIns: {},
   checkInIsLoading: false,
   checkInErrorMessage: errorMessage,
 })

@@ -3,9 +3,15 @@ import Fonts from 'App/Theme/Fonts'
 import Colors from 'App/Theme/Colors'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+
 export default StyleSheet.create({
   buttonContainer: {
     marginBottom: 25,
+  },
+  checkInBar: {
+    backgroundColor: Colors.alternate,
+    height: 50,
   },
   container: {
     ...ApplicationStyles.screen.container,
@@ -16,6 +22,13 @@ export default StyleSheet.create({
     ...Fonts.style.normal,
     color: Colors.error,
     marginBottom: 5,
+    textAlign: 'center',
+  },
+  header: {
+    ...Fonts.style.h2,
+    color: Colors.primary,
+    marginBottom: 10,
+    paddingTop: getStatusBarHeight(),
     textAlign: 'center',
   },
   instructions: {

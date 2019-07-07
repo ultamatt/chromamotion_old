@@ -1,9 +1,8 @@
 import React from 'react'
-import { Platform, Text, View, ScrollView, Button, ActivityIndicator, Image } from 'react-native'
+import { Platform, Text, View, ScrollView, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import CheckInActions from 'App/Stores/CheckIn/Actions'
-import { liveInEurope } from 'App/Stores/CheckIn/Selectors'
 import Style from './CheckInScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
@@ -25,66 +24,72 @@ class CheckInScreen extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    // Run the startup saga when the application is starting
+    this.props.listCheckIns()
+  }
+
   renderCheckInList = () => {
     let { checkIns } = this.props;
-
-    if(typeof checkIns == 'undefined' || checkIns.length <= 0){
+    if(checkIns.length == 0){
       return(
         <>
           <Text style={Style.text}>To get started, record how you are feeling.</Text>
         </>
       )
     } else {
-      let checkInElements = checkIns.map((checkIn) => {
+      let checkInElements = checkIns.map((checkIn, index) => {
         return (
-          <TouchableOpacity key={checkIn.objectId}>
-            <View style={{height: 20}}>
-              <Text style={Style.text}>
-                {checkIn.objectId}
-              </Text>
+          <TouchableOpacity key={checkIn.id || index}>
+            <View style={Style.checkInBar}>
+              <Text style={Style.title}>{checkIn.id}</Text>
             </View>
+            <Text style={Style.text}>{checkIn.id}</Text>
           </TouchableOpacity>
         )
       })
 
       return (
         <>
-          {JSON.stringify(checkIns)}
+          {checkInElements}
         </>
-      );
+      )
     }
   }
 
   render() {
+    const { checkIns, checkInIsLoading, checkInErrorMessage} = this.props;
     return (
       <View style={Style.container}>
-        {this.props.checkInIsLoading ? (
+        <Text style={Style.header}>{checkIns.length} Check Ins</Text>
+        {checkInIsLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
-          <View>
           <ScrollView>
-          {this.props.checkInErrorMessage ? (
-            <Text style={Style.error}>{this.props.checkInErrorMessage}</Text>
-          ) : (
-            this.renderCheckInList()
-          )}
+            {checkInErrorMessage ? (
+              <View>
+                <Text style={Style.error}>{checkInErrorMessage}</Text>
+              </View>
+            ) : (
+              <View>
+                {this.renderCheckInList()}
+              </View>
+            )}
           </ScrollView>
-          <View>
+
+        )}
+        <View style={Style.buttonContainer}>
             <Button
               style={Style.link}
               title="How are you feeling?"
               onPress={() => this.props.navigation.navigate('EmotionsScreen')}
             />
-            <View style={Style.buttonContainer}>
-              <Button
-                onPress={() => this.props.navigation.navigate('UserScreen')}
-                style={Style.signUpLoginButton}
-                title="Sign Up or Log In"
-              />
-            </View>
-          </View>
-          </View>
-        )}
+            <Button
+              onPress={() => this.props.listCheckIns()}
+              style={Style.signUpLoginButton}
+              title="Sign Up or Log In"
+            />
+        </View>
       </View>
     )
   }
@@ -95,15 +100,19 @@ CheckInScreen.propTypes = {
   checkInIsLoading: PropTypes.bool,
   checkInErrorMessage: PropTypes.string,
   fetchCheckIn: PropTypes.func,
+  listCheckIns: PropTypes.func,
 }
 
-const mapStateToProps = (state) => ({
-  checkIns: state.checkIns,
-  checkInIsLoading: state.checkInIsLoading,
-  checkInErrorMessage: state.checkInErrorMessage,
-})
+const mapStateToProps = (state) => {
+  return {
+    checkIns: state.checkIn.checkIns,
+    checkInIsLoading: state.checkIn.checkInIsLoading,
+    checkInErrorMessage: state.checkIn.checkInErrorMessage,
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
+  listCheckIns: () => dispatch(CheckInActions.listCheckIns()),
   fetchCheckIn: () => dispatch(CheckInActions.fetchCheckIn()),
 })
 

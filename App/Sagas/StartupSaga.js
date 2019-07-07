@@ -10,7 +10,6 @@ export function* startup() {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
   yield put(UserActions.fetchUser())
-  yield put(CheckInActions.listCheckIns())
 
   // Add more operations you need to do at startup here
   // ...

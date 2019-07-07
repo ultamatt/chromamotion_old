@@ -10,8 +10,8 @@ export default () => {
      * Register your reducers here.
      * @see https://redux.js.org/api-reference/combinereducers
      */
-    user: UserReducer,
     checkIn: CheckInReducer,
+    user: UserReducer,
   })
 
   return configureStore(rootReducer, rootSaga)
