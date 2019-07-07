@@ -2,11 +2,10 @@
  * The initial values for the redux state.
  */
 export const INITIAL_STATE = {
+  checkInId: null,
   checkIn: {},
-  checkIns: {
-    fuck: 'ass',
-  },
+  checkIns: [],
   emotions: [],
-  checkInIsLoading: true,
-  checkInErrorMessage: 'Sample error',
+  checkInIsLoading: false,
+  checkInErrorMessage: null,
 }
