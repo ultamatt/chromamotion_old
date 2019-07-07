@@ -1,5 +1,6 @@
 import { put } from 'redux-saga/effects'
 import UserActions from 'App/Stores/User/Actions'
+import CheckInActions from 'App/Stores/CheckIn/Actions'
 import NavigationService from 'App/Services/NavigationService'
 
 /**

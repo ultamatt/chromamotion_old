@@ -2,6 +2,7 @@ import React from 'react'
 import { Platform, Text, View, ScrollView, TouchableOpacity, Button, Alert, ActivityIndicator, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
+import CheckInActions from 'App/Stores/CheckIn/Actions'
 import Style from './EmotionsScreenStyle'
 
 const emotions = [
@@ -194,10 +195,6 @@ class EmotionsScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    //this.props.fetchUser();
-  }
-
   renderEmotionList = () => {
     let { emotions } = this.state;
     return emotions.map((emotion) => {
@@ -224,13 +221,21 @@ class EmotionsScreen extends React.Component {
     })
   }
 
+  onSaveEmotions = () => {
+    const { postCheckIn, navigation } = this.props;
+    const { emotions } = this.state;
+    postCheckIn({ emotions });
+    navigation.navigate('MainScreen')
+  }
+
   render() {
+    const { onSaveEmotions } = this;
     return (
       <View style={Style.container}>
         <Text style={Style.header}>How are you feeling?</Text>
         <Text style={Style.instructions}>Take a moment to sense what you are feeling.</Text>
         <ScrollView style={Style.container}>
-          {this.props.userIsLoading ? (
+          {this.props.checkInIsLoading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             this.renderEmotionList()
@@ -238,7 +243,7 @@ class EmotionsScreen extends React.Component {
         </ScrollView>
         <View style={Style.buttonContainer}>
           <Button
-            onPress={() => this.props.navigation.navigate('MainScreen') }
+            onPress={this.onSaveEmotions}
             style={Style.saveButton}
             title="Save Check-In"
           />
@@ -249,20 +254,18 @@ class EmotionsScreen extends React.Component {
 }
 
 EmotionsScreen.propTypes = {
-  checkIn: PropTypes.object,
   checkInIsLoading: PropTypes.bool,
   checkInErrorMessage: PropTypes.string,
   postCheckIn: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
-  checkIn: state.checkIn,
   checkInIsLoading: state.checkInIsLoading,
   checkInErrorMessage: state.checkInErrorMessage,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  postCheckIn: () => dispatch(CheckInActions.postCheckIn()),
+  postCheckIn: (obj) => dispatch(CheckInActions.postCheckIn(obj)),
 })
 
 export default connect(

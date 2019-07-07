@@ -1,6 +1,5 @@
 import React from 'react'
-import { PARSE_URL, PARSE_CLIENT_KEY, PARSE_APP_ID } from 'react-native-dotenv'
-import { Platform, Text, View, Button, ActivityIndicator, AsyncStorage, Image } from 'react-native'
+import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import CheckInActions from 'App/Stores/CheckIn/Actions'
@@ -8,7 +7,6 @@ import { liveInEurope } from 'App/Stores/CheckIn/Selectors'
 import Style from './CheckInScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
-import Parse from 'parse/react-native'
 
 /**
  * This is an example of a container component.
@@ -23,31 +21,8 @@ const instructions = Platform.select({
 })
 
 class CheckInScreen extends React.Component {
-  constructor(props) {
-    super(props)
-    Parse.setAsyncStorage(AsyncStorage)
-  }
-
   componentDidMount() {
-    // this.props.fetchUser()
-    Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
-    Parse.serverURL = PARSE_URL
-    // const CheckIn = Parse.Object.extend('CheckIn')
-    // const checkIn = new CheckIn()
-    //
-    // checkIn.set('emotionArray', ['anger', 'jealousy'])
-    //
-    // checkIn.save().then(
-    //   (checkIn) => {
-    //     // Execute any logic that should take place after the object is saved.
-    //     alert('New object created with objectId: ' + checkIn.id)
-    //   },
-    //   (error) => {
-    //     // Execute any logic that should take place if the save fails.
-    //     // error is a Parse.Error with an error code and message.
-    //     alert('Failed to create new object, with error code: ' + error.message)
-    //   }
-    // )
+    this.props.fetchCheckIn()
   }
 
   render() {

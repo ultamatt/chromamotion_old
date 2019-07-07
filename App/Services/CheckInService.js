@@ -1,49 +1,46 @@
-import axios from 'axios'
-import { Config } from 'App/Config'
-import { is, curryN, gte } from 'ramda'
+import { AsyncStorage } from 'react-native'
+import Parse from 'parse/react-native'
+import { PARSE_URL, PARSE_CLIENT_KEY, PARSE_APP_ID } from 'react-native-dotenv'
 
-const isWithin = curryN(3, (min, max, value) => {
-  const isNumber = is(Number)
-  return isNumber(min) && isNumber(max) && isNumber(value) && gte(value, min) && gte(max, value)
-})
-const in200s = isWithin(200, 299)
+Parse.setAsyncStorage(AsyncStorage)
+Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
+Parse.serverURL = PARSE_URL
+const CheckIn = Parse.Object.extend('CheckIn')
 
-/**
- * This is an example of a service that connects to a 3rd party API.
- *
- * Feel free to remove this example from your application.
- */
-const userApiClient = axios.create({
-  /**
-   * Import the config from the App/Config/index.js file
-   */
-  baseURL: Config.API_URL,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  timeout: 3000,
-})
-
-function fetchUser() {
-  // Simulate an error 50% of the time just for testing purposes
-  if (Math.random() > 0.5) {
-    return new Promise(function(resolve, reject) {
-      resolve(null)
-    })
-  }
-
-  let number = Math.floor(Math.random() / 0.1) + 1
-
-  return userApiClient.get(number.toString()).then((response) => {
-    if (in200s(response.status)) {
-      return response.data
-    }
-
-    return null
+function fetchCheckIn() {
+  const checkIn = new CheckIn()
+  const query = new Parse.Query(checkIn)
+  return new Promise(function(resolve, reject) {
+    query
+      .find()
+      .then((data) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        reject(error.message)
+      })
   })
 }
 
-export const userService = {
-  fetchUser,
+function postCheckIn({ emotions }) {
+  const checkIn = new CheckIn()
+  return new Promise(function(resolve, reject) {
+    checkIn.set({ emotions: emotions })
+    checkIn.save().then(
+      (checkIn) => {
+        // Execute any logic that should take place after the object is saved.
+        resolve(checkIn)
+      },
+      (error) => {
+        // Execute any logic that should take place if the save fails.
+        // error is a Parse.Error with an error code and message.
+        reject(error.message)
+      }
+    )
+  })
+}
+
+export const checkInService = {
+  fetchCheckIn,
+  postCheckIn,
 }

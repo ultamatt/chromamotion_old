@@ -22,16 +22,16 @@ export function* fetchCheckIn() {
   }
 }
 
-export function* postCheckIn() {
+export function* postCheckIn({ emotions }) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
   yield put(CheckInActions.postCheckInLoading())
 
   // Fetch checkIn informations from an API
-  const checkIn = yield call(checkInService.postCheckIn)
+  const checkIn = yield call(checkInService.postCheckIn, { emotions })
   if (checkIn) {
     yield put(CheckInActions.postCheckInSuccess(checkIn))
   } else {
-    yield put(CheckInActions.postCheckInFailure('There was an error while fetching check ins.'))
+    yield put(CheckInActions.postCheckInFailure('There was an error while posting check ins.'))
   }
 }
