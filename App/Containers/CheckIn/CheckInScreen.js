@@ -7,7 +7,7 @@ import CheckInActions from 'App/Stores/CheckIn/Actions'
 import Style from './CheckInScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
-
+import moment from 'moment'
 /**
  * This is an example of a container component.
  *
@@ -47,14 +47,15 @@ class CheckInScreen extends React.Component {
           }).map((emotion) => {
             return emotion.color
           });
+          const time = moment(checkIn.createdAt || moment.now()).fromNow();
           return (
             <TouchableOpacity key={checkIn.id || index}>
               <LinearGradient colors={colorArray} start={{x: 0, y: 0}} end={{x: 1, y: 0}} >
                 <View style={Style.checkInBar}>
-                  <Text style={Style.title}>{colorArray.length}</Text>
+                  <Text style={Style.title}>{time}</Text>
+                  <Text style={Style.text} toNow>{colorArray.length} feelings</Text>
                 </View>
               </LinearGradient>
-              <Text style={Style.text}>{checkIn.createdAt.toString()}</Text>
             </TouchableOpacity>
           )
         } else {

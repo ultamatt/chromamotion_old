@@ -13,7 +13,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    height: 50,
+    height: 70,
     justifyContent: 'center',
   },
   container: {
@@ -70,6 +70,12 @@ export default StyleSheet.create({
     ...Fonts.style.h3,
     alignItems: 'center',
   },
+  subtitle: {
+    ...Fonts.style.h4,
+    color: Colors.text,
+    marginBottom: 5,
+    textAlign: 'center',
+  },
   text: {
     ...Fonts.style.normal,
     color: Colors.text,
@@ -77,9 +83,9 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   title: {
-    ...Fonts.style.h2,
-    color: Colors.warning,
-    marginBottom: 10,
+    ...Fonts.style.h3,
+    color: Colors.alternate,
+    marginBottom: 5,
     textAlign: 'center',
   },
 })
