@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, Text, View, ScrollView, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
+import { Platform, Text, View, ScrollView, RefreshControl, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -38,7 +38,6 @@ class CheckInScreen extends React.Component {
         </>
       )
     } else {
-
       let checkInElements = checkIns.map((checkIn, index) => {
         let colorArray = [];
         if(checkIn.emotions != null){
@@ -83,7 +82,13 @@ class CheckInScreen extends React.Component {
         {checkInIsLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.props.checkInIsLoading}
+                onRefresh={this.props.listCheckIns}
+              />
+            }>
             {checkInErrorMessage ? (
               <View>
                 <Text style={Style.error}>{checkInErrorMessage}</Text>
