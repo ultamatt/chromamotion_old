@@ -44,7 +44,7 @@ class CheckInScreen extends React.Component {
             <View style={Style.checkInBar}>
               <Text style={Style.title}>{checkIn.id}</Text>
             </View>
-            <Text style={Style.text}>{checkIn.id}</Text>
+            <Text style={Style.text}>{checkIn.createdAt.toString()}</Text>
           </TouchableOpacity>
         )
       })
