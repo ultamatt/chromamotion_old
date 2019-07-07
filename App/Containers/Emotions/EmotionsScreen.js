@@ -224,7 +224,7 @@ class EmotionsScreen extends React.Component {
   onSaveEmotions = () => {
     const { postCheckIn, navigation } = this.props;
     const { emotions } = this.state;
-    postCheckIn({ emotions });
+    postCheckIn({emotions});
     navigation.navigate('MainScreen')
   }
 

@@ -22,10 +22,10 @@ function fetchCheckIn() {
   })
 }
 
-function postCheckIn({ emotions }) {
+function postCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
   return new Promise(function(resolve, reject) {
-    checkIn.set({ emotions: emotions })
+    checkIn.set({ emotions: daCheckIn.emotions })
     checkIn.save().then(
       (checkIn) => {
         // Execute any logic that should take place after the object is saved.

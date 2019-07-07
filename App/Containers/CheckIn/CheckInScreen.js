@@ -14,11 +14,11 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
  * This screen displays a little help message and informations about a fake checkIn.
  * Feel free to remove it.
  */
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
-})
+//
+// const instructions = Platform.select({
+//   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
+//   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
+// })
 
 class CheckInScreen extends React.Component {
   componentDidMount() {
@@ -32,8 +32,8 @@ class CheckInScreen extends React.Component {
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <View>
-            <Text style={Style.text}>To get started, edit App.js</Text>
-            <Text style={Style.instructions}>{instructions}</Text>
+            <Text style={Style.text}>To get started, record how you are feeling.</Text>
+            // <Text style={Style.instructions}>{instructions}</Text>
             {
               //   this.props.checkInErrorMessage ? (
               //   <Text style={Style.error}>{this.props.checkInErrorMessage}</Text>

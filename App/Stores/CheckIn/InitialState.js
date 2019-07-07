@@ -3,6 +3,7 @@
  */
 export const INITIAL_STATE = {
   checkIn: {},
+  emotions: [],
   checkInIsLoading: false,
   checkInErrorMessage: null,
 }
