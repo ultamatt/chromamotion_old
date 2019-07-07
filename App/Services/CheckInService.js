@@ -22,6 +22,21 @@ function fetchCheckIn() {
   })
 }
 
+function listCheckIns() {
+  const checkIn = new CheckIn()
+  const query = new Parse.Query(checkIn)
+  return new Promise(function(resolve, reject) {
+    query
+      .find()
+      .then((data) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        reject(error.message)
+      })
+  })
+}
+
 function postCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
   return new Promise(function(resolve, reject) {
@@ -42,5 +57,6 @@ function postCheckIn(daCheckIn) {
 
 export const checkInService = {
   fetchCheckIn,
+  listCheckIns,
   postCheckIn,
 }

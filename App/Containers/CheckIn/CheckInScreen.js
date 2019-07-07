@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
+import { Platform, Text, View, ScrollView, Button, ActivityIndicator, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import CheckInActions from 'App/Stores/CheckIn/Actions'
@@ -21,8 +21,38 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 // })
 
 class CheckInScreen extends React.Component {
-  componentDidMount() {
-    this.props.fetchCheckIn()
+  constructor(props){
+    super(props);
+  }
+
+  renderCheckInList = () => {
+    let { checkIns } = this.props;
+
+    if(typeof checkIns == 'undefined' || checkIns.length <= 0){
+      return(
+        <>
+          <Text style={Style.text}>To get started, record how you are feeling.</Text>
+        </>
+      )
+    } else {
+      let checkInElements = checkIns.map((checkIn) => {
+        return (
+          <TouchableOpacity key={checkIn.objectId}>
+            <View style={{height: 20}}>
+              <Text style={Style.text}>
+                {checkIn.objectId}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )
+      })
+
+      return (
+        <>
+          {JSON.stringify(checkIns)}
+        </>
+      );
+    }
   }
 
   render() {
@@ -32,26 +62,14 @@ class CheckInScreen extends React.Component {
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <View>
-            <Text style={Style.text}>To get started, record how you are feeling.</Text>
-            // <Text style={Style.instructions}>{instructions}</Text>
-            {
-              //   this.props.checkInErrorMessage ? (
-              //   <Text style={Style.error}>{this.props.checkInErrorMessage}</Text>
-              // ) : (
-              //   <View>
-              //     <Text style={Style.result}>
-              //       {"I'm a fake checkIn, my name is "}
-              //       {this.props.checkIn.name}
-              //     </Text>
-              //     <Text style={Style.result}>
-              //       {this.props.liveInEurope ? 'I live in Europe !' : "I don't live in Europe."}
-              //     </Text>
-              //   </View>
-              // )
-            }
-            {
-              // <Button onPress={this.props.fetchUser} title="Refresh" />
-            }
+          <ScrollView>
+          {this.props.checkInErrorMessage ? (
+            <Text style={Style.error}>{this.props.checkInErrorMessage}</Text>
+          ) : (
+            this.renderCheckInList()
+          )}
+          </ScrollView>
+          <View>
             <Button
               style={Style.link}
               title="How are you feeling?"
@@ -65,6 +83,7 @@ class CheckInScreen extends React.Component {
               />
             </View>
           </View>
+          </View>
         )}
       </View>
     )
@@ -72,14 +91,14 @@ class CheckInScreen extends React.Component {
 }
 
 CheckInScreen.propTypes = {
-  checkIn: PropTypes.object,
+  checkIns: PropTypes.array,
   checkInIsLoading: PropTypes.bool,
   checkInErrorMessage: PropTypes.string,
   fetchCheckIn: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
-  checkIn: state.checkIn,
+  checkIns: state.checkIns,
   checkInIsLoading: state.checkInIsLoading,
   checkInErrorMessage: state.checkInErrorMessage,
 })

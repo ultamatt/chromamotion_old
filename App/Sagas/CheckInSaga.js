@@ -22,6 +22,20 @@ export function* fetchCheckIn() {
   }
 }
 
+export function* listCheckIns() {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(CheckInActions.listCheckInsLoading())
+
+  // Fetch checkIn informations from an API
+  const checkIns = yield call(checkInService.listCheckIns)
+  if (checkIns) {
+    yield put(CheckInActions.listCheckInsSuccess(checkIns))
+  } else {
+    yield put(CheckInActions.listCheckInsFailure('There was an error while fetching check ins.'))
+  }
+}
+
 export function* postCheckIn(daCheckIn) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html

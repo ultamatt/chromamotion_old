@@ -8,6 +8,26 @@ import { INITIAL_STATE } from './InitialState'
 import { createReducer } from 'reduxsauce'
 import { CheckInTypes } from './Actions'
 
+export const listCheckInsLoading = (state) => ({
+  ...state,
+  checkInIsLoading: true,
+  checkInErrorMessage: null,
+})
+
+export const listCheckInsSuccess = (state, { checkIns }) => ({
+  ...state,
+  checkIns: checkIns,
+  checkInIsLoading: false,
+  checkInErrorMessage: null,
+})
+
+export const listCheckInsFailure = (state, { errorMessage }) => ({
+  ...state,
+  checkIns: [],
+  checkInIsLoading: false,
+  checkInErrorMessage: errorMessage,
+})
+
 export const fetchCheckInLoading = (state) => ({
   ...state,
   checkInIsLoading: true,
@@ -52,6 +72,9 @@ export const postCheckInFailure = (state, { errorMessage }) => ({
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
 export const reducer = createReducer(INITIAL_STATE, {
+  [CheckInTypes.LIST_CHECK_INS_LOADING]: listCheckInsLoading,
+  [CheckInTypes.LIST_CHECK_INS_SUCCESS]: listCheckInsSuccess,
+  [CheckInTypes.LIST_CHECK_INS_FAILURE]: listCheckInsFailure,
   [CheckInTypes.FETCH_CHECK_IN_LOADING]: fetchCheckInLoading,
   [CheckInTypes.FETCH_CHECK_IN_SUCCESS]: fetchCheckInSuccess,
   [CheckInTypes.FETCH_CHECK_IN_FAILURE]: fetchCheckInFailure,

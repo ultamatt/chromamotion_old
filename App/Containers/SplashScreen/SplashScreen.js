@@ -8,7 +8,7 @@ export default class SplashScreen extends React.Component {
     return (
       <View style={Style.container}>
         <View style={Style.logo}>
-          <Image style={Style.logo} source={Images.logo} resizeMode={'contain'} />
+          <Image source={Images.logo} resizeMode={'contain'} />
           <Text>Chromamotion</Text>
         </View>
       </View>

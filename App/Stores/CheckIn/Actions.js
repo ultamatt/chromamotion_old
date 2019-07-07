@@ -28,6 +28,15 @@ const { Types, Creators } = createActions({
   // An error occurred
   fetchCheckInFailure: ['errorMessage'],
 
+  // Fetch user informations
+  listCheckIns: null,
+  // The operation has started and is loading
+  listCheckInsLoading: null,
+  // CheckIn informations were successfully listed
+  listCheckInsSuccess: ['checkIns'],
+  // An error occurred
+  listCheckInsFailure: ['errorMessage'],
+
   postCheckIn: ['emotions'],
   // The operation has started and is loading
   postCheckInLoading: null,
