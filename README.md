@@ -6,17 +6,20 @@ A project in React native to help users identify, track, and share their feeling
 
 ### Emotions Picker
 [X] Create emotion picker page. Needs to be scrollable.
-  [ ] Find a better way to match colors to feelings?
+  [X] Find a better way to match colors to feelings?
 [X] Make emotion component that can be selected or deselected
 [ ] Make a rollup bar at the top that shows the current spectrum of emotions
-[ ] Make a way to save these selections
-  [ ] Tie selections into redux saga
+[X] Make a way to save these selections
+  [X] Tie selections into redux saga
 
 ### Check-in review
-[ ] Make a screen where you can see your previous check-ins
-  [ ] Sorted by day/time
-  [ ] It's a 100% horizontal bar button that's the spectrum of how you felt.
+[X] Make a screen where you can see your previous check-ins
+  [X] Sorted by day/time
+  [X] It's a 100% horizontal bar button that's the spectrum of how you felt.
 [ ] When you select a checkin, you're brought to a details page of it.
+
+### Check-in details
+[ ] See the details of a check-in
 
 ### Login/Sign up and Back End as a Service
 [ ] Integrate with an Authorication provider that also offers back end as a service.
