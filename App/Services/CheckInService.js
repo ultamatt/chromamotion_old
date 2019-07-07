@@ -29,7 +29,24 @@ function listCheckIns() {
     query
       .find()
       .then((data) => {
-        resolve(data)
+        console.log(data)
+        let getArray = []
+        for (var i = 0; i < data.length; i++) {
+          console.log('adding to array', data[i].id)
+          const query = new Parse.Query(checkIn)
+          getArray.push(query.get(data[i].id))
+        }
+
+        Promise.all(getArray)
+          .then((checkIns) => {
+            let returnable = checkIns.map((checkIn) => {
+              return checkIn.toJSON()
+            })
+            resolve(returnable)
+          })
+          .catch((error) => {
+            reject(error.message)
+          })
       })
       .catch((error) => {
         reject(error.message)

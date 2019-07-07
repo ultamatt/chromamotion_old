@@ -1,5 +1,6 @@
 import React from 'react'
 import { Platform, Text, View, ScrollView, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import CheckInActions from 'App/Stores/CheckIn/Actions'
@@ -29,8 +30,7 @@ class CheckInScreen extends React.Component {
     this.props.listCheckIns()
   }
 
-  renderCheckInList = () => {
-    let { checkIns } = this.props;
+  renderCheckInList = (checkIns) => {
     if(checkIns.length == 0){
       return(
         <>
@@ -38,15 +38,32 @@ class CheckInScreen extends React.Component {
         </>
       )
     } else {
+
       let checkInElements = checkIns.map((checkIn, index) => {
-        return (
-          <TouchableOpacity key={checkIn.id || index}>
-            <View style={Style.checkInBar}>
-              <Text style={Style.title}>{checkIn.id}</Text>
-            </View>
-            <Text style={Style.text}>{checkIn.createdAt.toString()}</Text>
-          </TouchableOpacity>
-        )
+        let colorArray = [];
+        if(checkIn.emotions != null){
+          colorArray = checkIn.emotions.emotions.filter((emotion) => {
+            return emotion.selected ? emotion : null;
+          }).map((emotion) => {
+            return emotion.color
+          });
+          return (
+            <TouchableOpacity key={checkIn.id || index}>
+              <LinearGradient colors={colorArray} start={{x: 0, y: 0}} end={{x: 1, y: 0}} >
+                <View style={Style.checkInBar}>
+                  <Text style={Style.title}>{colorArray.length}</Text>
+                </View>
+              </LinearGradient>
+              <Text style={Style.text}>{checkIn.createdAt.toString()}</Text>
+            </TouchableOpacity>
+          )
+        } else {
+          return (
+            <TouchableOpacity key={checkIn.id || index}>
+              <Text style={Style.text}>FUCK</Text>
+            </TouchableOpacity>
+          )
+        }
       })
 
       return (
@@ -72,7 +89,7 @@ class CheckInScreen extends React.Component {
               </View>
             ) : (
               <View>
-                {this.renderCheckInList()}
+                {this.renderCheckInList(checkIns)}
               </View>
             )}
           </ScrollView>
@@ -86,6 +103,11 @@ class CheckInScreen extends React.Component {
             />
             <Button
               onPress={() => this.props.listCheckIns()}
+              style={Style.link}
+              title="List Checkins"
+            />
+            <Button
+              onPress={() => this.props.navigation.navigate('UserScreen')}
               style={Style.signUpLoginButton}
               title="Sign Up or Log In"
             />

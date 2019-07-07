@@ -54,7 +54,7 @@ export default StyleSheet.create({
   },
   text: {
     ...Fonts.style.h3,
-    color: Colors.alternate,
+    color: Colors.text,
     textAlign: 'center',
   },
 })

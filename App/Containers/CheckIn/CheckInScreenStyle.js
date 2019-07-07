@@ -10,8 +10,11 @@ export default StyleSheet.create({
     marginBottom: 25,
   },
   checkInBar: {
-    backgroundColor: Colors.alternate,
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
     height: 50,
+    justifyContent: 'center',
   },
   container: {
     ...ApplicationStyles.screen.container,

@@ -16,14 +16,14 @@ export const listCheckInsLoading = (state) => ({
 
 export const listCheckInsSuccess = (state, { checkIns }) => ({
   ...state,
-  checkIns: checkIns,
+  checkIns: checkIns.checkIns,
   checkInIsLoading: false,
   checkInErrorMessage: null,
 })
 
 export const listCheckInsFailure = (state, { errorMessage }) => ({
   ...state,
-  checkIns: {},
+  checkIns: [],
   checkInIsLoading: false,
   checkInErrorMessage: errorMessage,
 })

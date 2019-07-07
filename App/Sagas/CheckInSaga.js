@@ -30,7 +30,8 @@ export function* listCheckIns() {
   // Fetch checkIn informations from an API
   const checkIns = yield call(checkInService.listCheckIns)
   if (checkIns) {
-    yield put(CheckInActions.listCheckInsSuccess(checkIns))
+    let checkInsObject = { checkIns: checkIns }
+    yield put(CheckInActions.listCheckInsSuccess(checkInsObject))
   } else {
     yield put(CheckInActions.listCheckInsFailure('There was an error while fetching check ins.'))
   }
