@@ -7,6 +7,12 @@ Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
 Parse.serverURL = PARSE_URL
 const CheckIn = Parse.Object.extend('CheckIn')
 
+function selectEmotion(emotionNameObj) {
+  return new Promise(function(resolve, reject) {
+    resolve(emotionNameObj.emotionName)
+  })
+}
+
 function fetchCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
   const query = new Parse.Query(checkIn)
@@ -81,8 +87,7 @@ function postCheckIn(daCheckIn) {
     checkIn.save().then(
       (checkIn) => {
         // Execute any logic that should take place after the object is saved.
-        daCheckIn.objectId = checkIn.id
-        resolve(daCheckIn)
+        resolve(checkIn.toJSON())
       },
       (error) => {
         // Execute any logic that should take place if the save fails.
@@ -98,4 +103,5 @@ export const checkInService = {
   listCheckIns,
   postCheckIn,
   destroyCheckIn,
+  selectEmotion,
 }

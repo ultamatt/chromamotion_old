@@ -3,7 +3,13 @@ import { UserTypes } from 'App/Stores/User/Actions'
 import { CheckInTypes } from 'App/Stores/CheckIn/Actions'
 import { StartupTypes } from 'App/Stores/Startup/Actions'
 import { fetchUser } from './UserSaga'
-import { listCheckIns, fetchCheckIn, destroyCheckIn, postCheckIn } from './CheckInSaga'
+import {
+  listCheckIns,
+  fetchCheckIn,
+  destroyCheckIn,
+  postCheckIn,
+  selectEmotion,
+} from './CheckInSaga'
 import { startup } from './StartupSaga'
 
 export default function* root() {
@@ -16,6 +22,7 @@ export default function* root() {
     // Call `fetchUser()` when a `FETCH_USER` action is triggered
     takeLatest(UserTypes.FETCH_USER, fetchUser),
 
+    takeLatest(CheckInTypes.SELECT_EMOTION, selectEmotion),
     takeLatest(CheckInTypes.LIST_CHECK_INS, listCheckIns),
     takeLatest(CheckInTypes.FETCH_CHECK_IN, fetchCheckIn),
     takeLatest(CheckInTypes.DESTROY_CHECK_IN, destroyCheckIn),

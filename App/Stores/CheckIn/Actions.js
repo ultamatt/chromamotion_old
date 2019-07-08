@@ -20,6 +20,11 @@ import { createActions } from 'reduxsauce'
  */
 const { Types, Creators } = createActions({
   // Fetch user informations
+  selectEmotion: ['emotionName'],
+  // CheckIn informations were successfully fetched
+  selectEmotionSuccess: ['emotionName'],
+
+  // Fetch user informations
   fetchCheckIn: ['checkInId'],
   // The operation has started and is loading
   fetchCheckInLoading: null,

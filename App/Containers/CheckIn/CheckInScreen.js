@@ -29,7 +29,7 @@ class CheckInScreen extends React.Component {
       )
     } else {
       let checkInElements = checkIns.sort((a,b) => {
-        return moment(b.createdAt).format('X')-moment(a.createdAt).format('X')
+        return moment(b.createdAt).format('X') - moment(a.createdAt).format('X')
       }).map((checkIn, index) => {
         let colorArray = [];
         if(checkIn.emotions != null){

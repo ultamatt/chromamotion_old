@@ -8,6 +8,20 @@ import { INITIAL_STATE } from './InitialState'
 import { createReducer } from 'reduxsauce'
 import { CheckInTypes } from './Actions'
 
+export const selectEmotionSuccess = (state, { emotionName }) => {
+  return {
+    ...state,
+    emotions: [
+      ...state.emotions.map((emotion) => {
+        if (emotion.name == emotionName.emotionName) {
+          emotion.selected = !emotion.selected
+        }
+        return emotion
+      }),
+    ],
+  }
+}
+
 export const listCheckInsLoading = (state) => ({
   ...state,
   checkInIsLoading: true,
@@ -59,7 +73,6 @@ export const destroyCheckInSuccess = (state, { checkInId }) => {
     ...state,
     checkIns: [
       ...state.checkIns.filter((it) => {
-        console.log(it, checkInId)
         return it.objectId != checkInId
       }),
     ],
@@ -80,13 +93,21 @@ export const postCheckInLoading = (state) => ({
   checkInErrorMessage: null,
 })
 
-export const postCheckInSuccess = (state, { checkIn }) => ({
-  ...state,
-  checkIn: {},
-  checkIns: [...state.checkIns, checkIn],
-  checkInIsLoading: false,
-  checkInErrorMessage: null,
-})
+export const postCheckInSuccess = (state, { checkIn }) => {
+  return {
+    ...state,
+    checkIn: {},
+    checkIns: [...state.checkIns, checkIn],
+    emotions: [
+      ...state.emotions.map((emotion) => {
+        emotion.selected = false
+        return emotion
+      }),
+    ],
+    checkInIsLoading: false,
+    checkInErrorMessage: null,
+  }
+}
 
 export const postCheckInFailure = (state, { errorMessage }) => ({
   ...state,
@@ -99,6 +120,7 @@ export const postCheckInFailure = (state, { errorMessage }) => ({
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
 export const reducer = createReducer(INITIAL_STATE, {
+  [CheckInTypes.SELECT_EMOTION_SUCCESS]: selectEmotionSuccess,
   [CheckInTypes.LIST_CHECK_INS_LOADING]: listCheckInsLoading,
   [CheckInTypes.LIST_CHECK_INS_SUCCESS]: listCheckInsSuccess,
   [CheckInTypes.LIST_CHECK_INS_FAILURE]: listCheckInsFailure,
