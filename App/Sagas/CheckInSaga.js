@@ -37,6 +37,20 @@ export function* listCheckIns() {
   }
 }
 
+export function* destroyCheckIn(daCheckIn) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(CheckInActions.destroyCheckInLoading())
+
+  // Fetch checkIn informations from an API
+  const checkIn = yield call(checkInService.destroyCheckIn, daCheckIn)
+  if (checkIn) {
+    yield put(CheckInActions.destroyCheckInSuccess(checkIn))
+  } else {
+    yield put(CheckInActions.destroyCheckInFailure('There was an error while destroying check in.'))
+  }
+}
+
 export function* postCheckIn(daCheckIn) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html

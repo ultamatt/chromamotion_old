@@ -5,30 +5,31 @@ A project in React native to help users identify, track, and share their feeling
 ## Todo
 
 ### Emotions Picker
-[X] Create emotion picker page. Needs to be scrollable.
-  [X] Find a better way to match colors to feelings?
-[X] Make emotion component that can be selected or deselected
-[ ] Make a rollup bar at the top that shows the current spectrum of emotions
-[X] Make a way to save these selections
-  [X] Tie selections into redux saga
+- [X] Create emotion picker page. Needs to be scrollable.
+  - [X] Find a better way to match colors to feelings?
+- [X] Make emotion component that can be selected or deselected
+- [ ] Make a rollup bar at the top that shows the current spectrum of emotions
+- [X] Make a way to save these selections
+  - [X] Tie selections into redux saga
 
 ### Check-in review
-[X] Make a screen where you can see your previous check-ins
-  [X] Sorted by day/time newest up top
-  [X] It's a 100% horizontal bar button that's the spectrum of how you felt.
-  [X] New CheckIN bar above all checkIns
-[X] When you select a checkin, you're brought to a details page of it.
+- [X] Make a screen where you can see your previous check-ins
+  - [X] Sorted by day/time newest up top
+  - [X] It's a 100% horizontal bar button that's the spectrum of how you felt.
+  - [X] New CheckIN bar above all checkIns
+- [X] When you select a checkin, you're brought to a details page of it.
 
 ### Check-in details
-[X] See the details of a check-in
+- [X] See the details of a check-in
+- [ ] Delete a checkin
 
 ### Login/Sign up and Back End as a Service
-[ ] Integrate with an Authorication provider that also offers back end as a service.
-[ ] Allow users to login or sign up for this as a service
-[ ] Begin storing their check-ins on that service.
+- [ ] Integrate with an Authorication provider that also offers back end as a service.
+- [ ] Allow users to login or sign up for this as a service
+- [ ] Begin storing their check-ins on that service.
 
 ### About Screen
-[ ] Create a place to link back to my repo, and personal website
+- [ ] Create a place to link back to my repo, and personal website
 
 #### TheCodingMachine React Native boilerplate
 Big thanks to TheCodingMachine for this boilerplate which I've built off of. Credit here:

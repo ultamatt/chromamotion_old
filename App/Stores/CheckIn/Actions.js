@@ -29,6 +29,15 @@ const { Types, Creators } = createActions({
   fetchCheckInFailure: ['errorMessage'],
 
   // Fetch user informations
+  destroyCheckIn: ['checkInId'],
+  // The operation has started and is loading
+  destroyCheckInLoading: null,
+  // CheckIn informations were successfully destroyed
+  destroyCheckInSuccess: ['checkInId'],
+  // An error occurred
+  destroyCheckInFailure: ['errorMessage'],
+
+  // Fetch user informations
   listCheckIns: null,
   // The operation has started and is loading
   listCheckInsLoading: null,

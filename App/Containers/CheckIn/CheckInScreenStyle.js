@@ -16,6 +16,10 @@ export default StyleSheet.create({
     height: 70,
     justifyContent: 'center',
   },
+  checkInButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,

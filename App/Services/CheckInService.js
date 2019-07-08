@@ -22,6 +22,28 @@ function fetchCheckIn(daCheckIn) {
   })
 }
 
+function destroyCheckIn(daCheckIn) {
+  const checkIn = new CheckIn()
+  const query = new Parse.Query(checkIn)
+  return new Promise(function(resolve, reject) {
+    query
+      .get(daCheckIn.checkInId)
+      .then((data) => {
+        data
+          .destroy()
+          .then((data) => {
+            resolve(daCheckIn.checkInId)
+          })
+          .catch((error) => {
+            reject(error.message)
+          })
+      })
+      .catch((error) => {
+        reject(error.message)
+      })
+  })
+}
+
 function listCheckIns() {
   const checkIn = new CheckIn()
   const query = new Parse.Query(checkIn)
@@ -59,7 +81,8 @@ function postCheckIn(daCheckIn) {
     checkIn.save().then(
       (checkIn) => {
         // Execute any logic that should take place after the object is saved.
-        resolve(checkIn)
+        daCheckIn.objectId = checkIn.id
+        resolve(daCheckIn)
       },
       (error) => {
         // Execute any logic that should take place if the save fails.
@@ -74,4 +97,5 @@ export const checkInService = {
   fetchCheckIn,
   listCheckIns,
   postCheckIn,
+  destroyCheckIn,
 }

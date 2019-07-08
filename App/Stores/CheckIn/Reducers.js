@@ -48,6 +48,32 @@ export const fetchCheckInFailure = (state, { errorMessage }) => ({
   checkInErrorMessage: errorMessage,
 })
 
+export const destroyCheckInLoading = (state) => ({
+  ...state,
+  checkInIsLoading: true,
+  checkInErrorMessage: null,
+})
+
+export const destroyCheckInSuccess = (state, { checkInId }) => {
+  return {
+    ...state,
+    checkIns: [
+      ...state.checkIns.filter((it) => {
+        console.log(it, checkInId)
+        return it.objectId != checkInId
+      }),
+    ],
+    checkInIsLoading: false,
+    checkInErrorMessage: null,
+  }
+}
+
+export const destroyCheckInFailure = (state, { errorMessage }) => ({
+  ...state,
+  checkInIsLoading: false,
+  checkInErrorMessage: errorMessage,
+})
+
 export const postCheckInLoading = (state) => ({
   ...state,
   checkInIsLoading: true,
@@ -56,7 +82,8 @@ export const postCheckInLoading = (state) => ({
 
 export const postCheckInSuccess = (state, { checkIn }) => ({
   ...state,
-  checkIn: checkIn,
+  checkIn: {},
+  checkIns: [...state.checkIns, checkIn],
   checkInIsLoading: false,
   checkInErrorMessage: null,
 })
@@ -78,6 +105,9 @@ export const reducer = createReducer(INITIAL_STATE, {
   [CheckInTypes.FETCH_CHECK_IN_LOADING]: fetchCheckInLoading,
   [CheckInTypes.FETCH_CHECK_IN_SUCCESS]: fetchCheckInSuccess,
   [CheckInTypes.FETCH_CHECK_IN_FAILURE]: fetchCheckInFailure,
+  [CheckInTypes.DESTROY_CHECK_IN_LOADING]: destroyCheckInLoading,
+  [CheckInTypes.DESTROY_CHECK_IN_SUCCESS]: destroyCheckInSuccess,
+  [CheckInTypes.DESTROY_CHECK_IN_FAILURE]: destroyCheckInFailure,
   [CheckInTypes.POST_CHECK_IN_LOADING]: postCheckInLoading,
   [CheckInTypes.POST_CHECK_IN_SUCCESS]: postCheckInSuccess,
   [CheckInTypes.POST_CHECK_IN_FAILURE]: postCheckInFailure,
