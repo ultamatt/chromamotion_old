@@ -2,6 +2,11 @@ import { put, call } from 'redux-saga/effects'
 import CheckInActions from 'App/Stores/CheckIn/Actions'
 import { checkInService } from 'App/Services/CheckInService'
 
+export function* selectEmotion(emotionName) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(CheckInActions.selectEmotionSuccess(emotionName))
+}
 /**
  * A saga can contain multiple functions.
  *
@@ -37,6 +42,20 @@ export function* listCheckIns() {
   }
 }
 
+export function* destroyCheckIn(daCheckIn) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(CheckInActions.destroyCheckInLoading())
+
+  // Fetch checkIn informations from an API
+  const checkIn = yield call(checkInService.destroyCheckIn, daCheckIn)
+  if (checkIn) {
+    yield put(CheckInActions.destroyCheckInSuccess(checkIn))
+  } else {
+    yield put(CheckInActions.destroyCheckInFailure('There was an error while destroying check in.'))
+  }
+}
+
 export function* postCheckIn(daCheckIn) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
@@ -44,6 +63,7 @@ export function* postCheckIn(daCheckIn) {
 
   // Fetch checkIn informations from an API
   const checkIn = yield call(checkInService.postCheckIn, daCheckIn)
+  console.log(checkIn)
   if (checkIn) {
     yield put(CheckInActions.postCheckInSuccess(checkIn))
   } else {

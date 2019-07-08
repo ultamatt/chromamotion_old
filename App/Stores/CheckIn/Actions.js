@@ -20,6 +20,11 @@ import { createActions } from 'reduxsauce'
  */
 const { Types, Creators } = createActions({
   // Fetch user informations
+  selectEmotion: ['emotionName'],
+  // CheckIn informations were successfully fetched
+  selectEmotionSuccess: ['emotionName'],
+
+  // Fetch user informations
   fetchCheckIn: ['checkInId'],
   // The operation has started and is loading
   fetchCheckInLoading: null,
@@ -27,6 +32,15 @@ const { Types, Creators } = createActions({
   fetchCheckInSuccess: ['checkIn'],
   // An error occurred
   fetchCheckInFailure: ['errorMessage'],
+
+  // Fetch user informations
+  destroyCheckIn: ['checkInId'],
+  // The operation has started and is loading
+  destroyCheckInLoading: null,
+  // CheckIn informations were successfully destroyed
+  destroyCheckInSuccess: ['checkInId'],
+  // An error occurred
+  destroyCheckInFailure: ['errorMessage'],
 
   // Fetch user informations
   listCheckIns: null,

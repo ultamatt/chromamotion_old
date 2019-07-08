@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, Text, View, ScrollView, RefreshControl, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
+import { Alert, Platform, Text, View, ScrollView, RefreshControl, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -9,17 +9,6 @@ import Colors from 'App/Theme/Colors'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import moment from 'moment'
-/**
- * This is an example of a container component.
- *
- * This screen displays a little help message and informations about a fake checkIn.
- * Feel free to remove it.
- */
-//
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
-//   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
-// })
 
 class CheckInScreen extends React.Component {
   constructor(props){
@@ -40,7 +29,7 @@ class CheckInScreen extends React.Component {
       )
     } else {
       let checkInElements = checkIns.sort((a,b) => {
-        return moment(b.createdAt).format('X')-moment(a.createdAt).format('X')
+        return moment(b.createdAt).format('X') - moment(a.createdAt).format('X')
       }).map((checkIn, index) => {
         let colorArray = [];
         if(checkIn.emotions != null){
@@ -51,14 +40,24 @@ class CheckInScreen extends React.Component {
           });
           const time = moment(checkIn.createdAt || moment.now()).fromNow();
           return (
-            <TouchableOpacity key={checkIn.id || index} onPress={() => { this.viewCheckIn(checkIn.objectId)}}>
-              <LinearGradient colors={colorArray} start={{x: 0, y: 0}} end={{x: 1, y: 0}} >
-                <View style={Style.checkInBar}>
-                  <Text style={Style.title}>{time}</Text>
-                  <Text style={Style.text} toNow>{colorArray.length} feelings</Text>
-                </View>
-              </LinearGradient>
-            </TouchableOpacity>
+            <View key={checkIn.id || index} >
+              <TouchableOpacity onPress={() => { this.viewCheckIn(checkIn.objectId)}}>
+                <LinearGradient colors={colorArray} start={{x: 0, y: 0}} end={{x: 1, y: 0}} >
+                  <View style={Style.checkInBar}>
+                    <Text style={Style.title}>{time}</Text>
+                    <Text style={Style.text} toNow>{colorArray.length} feelings</Text>
+                  </View>
+                </LinearGradient>
+              </TouchableOpacity>
+              <View style={Style.checkInButtons}>
+                <TouchableOpacity>
+                  <Text style={Style.text}>Share</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { this.removeCheckIn(checkIn.objectId)}}>
+                  <Text style={Style.text}>Remove</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           )
         } else {
           return (
@@ -80,6 +79,24 @@ class CheckInScreen extends React.Component {
   viewCheckIn = (checkInId) => {
     this.props.fetchCheckIn(checkInId)
     this.props.navigation.navigate('ViewCheckIn')
+  }
+
+  removeCheckIn = (checkInId) => {
+    Alert.alert(
+      'Remove Check In?',
+      'Are you sure you would like remove this Check In? It will no longer be accessable by any user.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Remove',
+          onPress: () => this.props.destroyCheckIn(checkInId)
+        },
+      ],
+      {cancelable: true},
+    );
   }
 
   render() {
@@ -132,6 +149,7 @@ CheckInScreen.propTypes = {
   checkInIsLoading: PropTypes.bool,
   checkInErrorMessage: PropTypes.string,
   fetchCheckIn: PropTypes.func,
+  destroyCheckIn: PropTypes.func,
   listCheckIns: PropTypes.func,
 }
 
@@ -146,6 +164,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   listCheckIns: () => dispatch(CheckInActions.listCheckIns()),
   fetchCheckIn: (checkInId) => dispatch(CheckInActions.fetchCheckIn(checkInId)),
+  destroyCheckIn: (checkInId) => dispatch(CheckInActions.destroyCheckIn(checkInId)),
 })
 
 export default connect(

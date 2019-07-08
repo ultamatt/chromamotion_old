@@ -7,6 +7,12 @@ Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
 Parse.serverURL = PARSE_URL
 const CheckIn = Parse.Object.extend('CheckIn')
 
+function selectEmotion(emotionNameObj) {
+  return new Promise(function(resolve, reject) {
+    resolve(emotionNameObj.emotionName)
+  })
+}
+
 function fetchCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
   const query = new Parse.Query(checkIn)
@@ -15,6 +21,28 @@ function fetchCheckIn(daCheckIn) {
       .get(daCheckIn.checkInId)
       .then((data) => {
         resolve(data.toJSON())
+      })
+      .catch((error) => {
+        reject(error.message)
+      })
+  })
+}
+
+function destroyCheckIn(daCheckIn) {
+  const checkIn = new CheckIn()
+  const query = new Parse.Query(checkIn)
+  return new Promise(function(resolve, reject) {
+    query
+      .get(daCheckIn.checkInId)
+      .then((data) => {
+        data
+          .destroy()
+          .then((data) => {
+            resolve(daCheckIn.checkInId)
+          })
+          .catch((error) => {
+            reject(error.message)
+          })
       })
       .catch((error) => {
         reject(error.message)
@@ -59,7 +87,7 @@ function postCheckIn(daCheckIn) {
     checkIn.save().then(
       (checkIn) => {
         // Execute any logic that should take place after the object is saved.
-        resolve(checkIn)
+        resolve(checkIn.toJSON())
       },
       (error) => {
         // Execute any logic that should take place if the save fails.
@@ -74,4 +102,6 @@ export const checkInService = {
   fetchCheckIn,
   listCheckIns,
   postCheckIn,
+  destroyCheckIn,
+  selectEmotion,
 }
