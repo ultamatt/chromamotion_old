@@ -2,6 +2,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation'
 
 import EmotionsScreen from 'App/Containers/Emotions/EmotionsScreen'
 import CheckInScreen from 'App/Containers/CheckIn/CheckInScreen'
+import ViewCheckInScreen from 'App/Containers/CheckIn/ViewCheckInScreen'
 import SplashScreen from 'App/Containers/SplashScreen/SplashScreen'
 
 /**
@@ -17,6 +18,7 @@ const StackNavigator = createStackNavigator(
     // The main application screen is our "CheckInScreen". Feel free to replace it with your
     // own screen and remove the example.
     MainScreen: CheckInScreen,
+    ViewCheckIn: ViewCheckInScreen,
     EmotionsScreen: EmotionsScreen,
   },
   {

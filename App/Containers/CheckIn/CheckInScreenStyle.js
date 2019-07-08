@@ -19,7 +19,7 @@ export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   error: {
     ...Fonts.style.normal,
@@ -27,12 +27,22 @@ export default StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
   },
-  header: {
+  headerButton: {
     ...Fonts.style.h2,
     color: Colors.primary,
-    marginBottom: 10,
-    paddingTop: getStatusBarHeight(),
     textAlign: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: getStatusBarHeight(),
+  },
+  headerTitle: {
+    ...Fonts.style.h2,
+    color: Colors.primary,
+    margin: 5,
+    padding: 5,
+    textAlign: 'left',
   },
   instructions: {
     ...Fonts.style.normal,
@@ -51,15 +61,6 @@ export default StyleSheet.create({
     ...Fonts.style.normal,
     marginBottom: 5,
     textAlign: 'center',
-  },
-  logo: {
-    height: '100%',
-    width: '100%',
-  },
-  logoContainer: {
-    height: 300,
-    marginBottom: 25,
-    width: '100%',
   },
   result: {
     ...Fonts.style.normal,

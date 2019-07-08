@@ -8,13 +8,13 @@ import { checkInService } from 'App/Services/CheckInService'
  * This example saga contains only one to fetch fake checkIn informations.
  * Feel free to remove it.
  */
-export function* fetchCheckIn() {
+export function* fetchCheckIn(checkInId) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
   yield put(CheckInActions.fetchCheckInLoading())
 
   // Fetch checkIn informations from an API
-  const checkIn = yield call(checkInService.fetchCheckIn)
+  const checkIn = yield call(checkInService.fetchCheckIn, checkInId)
   if (checkIn) {
     yield put(CheckInActions.fetchCheckInSuccess(checkIn))
   } else {

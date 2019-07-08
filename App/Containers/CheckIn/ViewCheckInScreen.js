@@ -15,34 +15,53 @@ import CheckInActions from 'App/Stores/CheckIn/Actions'
 import Style from './ViewCheckInScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
-
-/**
- * This is an example of a container component.
- *
- * This screen displays a little help message and informations about a fake checkIn.
- * Feel free to remove it.
- */
-//
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
-//   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
-// })
+import moment from 'moment'
 
 class ViewCheckInScreen extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {
-    // Run the startup saga when the application is starting
-    this.props.fetchCheckIn()
+  renderEmotionList = () => {
+    let { checkIn } = this.props;
+    console.log(checkIn);
+    if(checkIn.emotions == null){
+      return(
+        <>
+          <Text style={Style.text}>Fetching Check-In</Text>
+        </>
+      )
+    } else {
+      let emotions = checkIn.emotions;
+      let emotionElements = emotions.emotions.filter((emotion) => {
+        return emotion.selected ? emotion : null
+      }).map((emotion) => {
+        return (
+          <TouchableOpacity key={emotion.name}>
+            <View style={{height: 50, backgroundColor:emotion.color}} opacity={emotion.selected ? 1.0 : 0.5}>
+              <Text style={Style.text}>
+                {emotion.name}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )
+      })
+      return (
+        <>
+          {emotionElements}
+        </>
+      )
+    }
+
   }
 
   render() {
     const { checkIn, checkInIsLoading, checkInErrorMessage } = this.props
+    const time = moment(checkIn.createdAt || moment.now()).calendar();
     return (
       <View style={Style.container}>
-        <Text style={Style.header}>{checkIns.length} Check Ins</Text>
+        <Text style={Style.header}>Viewing Check In</Text>
+        <Text style={Style.text}>{time}</Text>
         {checkInIsLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
@@ -52,22 +71,10 @@ class ViewCheckInScreen extends React.Component {
                 <Text style={Style.error}>{checkInErrorMessage}</Text>
               </View>
             ) : (
-              <View>{this.renderCheckInList()}</View>
+              <View>{this.renderEmotionList()}</View>
             )}
           </ScrollView>
         )}
-        <View style={Style.buttonContainer}>
-          <Button
-            style={Style.link}
-            title="How are you feeling?"
-            onPress={() => this.props.navigation.navigate('EmotionsScreen')}
-          />
-          <Button
-            onPress={() => this.props.listCheckIns()}
-            style={Style.signUpLoginButton}
-            title="Sign Up or Log In"
-          />
-        </View>
       </View>
     )
   }
@@ -75,7 +82,6 @@ class ViewCheckInScreen extends React.Component {
 
 ViewCheckInScreen.propTypes = {
   checkIn: PropTypes.object,
-  checkInId: PropTypes.string,
   checkInIsLoading: PropTypes.bool,
   checkInErrorMessage: PropTypes.string,
   fetchCheckIn: PropTypes.func,
@@ -84,7 +90,6 @@ ViewCheckInScreen.propTypes = {
 const mapStateToProps = (state) => {
   return {
     checkIn: state.checkIn.checkIn,
-    checkInId: state.checkIn.checkInId,
     checkInIsLoading: state.checkIn.checkInIsLoading,
     checkInErrorMessage: state.checkIn.checkInErrorMessage,
   }

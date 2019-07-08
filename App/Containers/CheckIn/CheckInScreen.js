@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import CheckInActions from 'App/Stores/CheckIn/Actions'
 import Style from './CheckInScreenStyle'
+import Colors from 'App/Theme/Colors'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import moment from 'moment'
@@ -38,7 +39,9 @@ class CheckInScreen extends React.Component {
         </>
       )
     } else {
-      let checkInElements = checkIns.map((checkIn, index) => {
+      let checkInElements = checkIns.sort((a,b) => {
+        return moment(b.createdAt).format('X')-moment(a.createdAt).format('X')
+      }).map((checkIn, index) => {
         let colorArray = [];
         if(checkIn.emotions != null){
           colorArray = checkIn.emotions.emotions.filter((emotion) => {
@@ -48,7 +51,7 @@ class CheckInScreen extends React.Component {
           });
           const time = moment(checkIn.createdAt || moment.now()).fromNow();
           return (
-            <TouchableOpacity key={checkIn.id || index}>
+            <TouchableOpacity key={checkIn.id || index} onPress={() => { this.viewCheckIn(checkIn.objectId)}}>
               <LinearGradient colors={colorArray} start={{x: 0, y: 0}} end={{x: 1, y: 0}} >
                 <View style={Style.checkInBar}>
                   <Text style={Style.title}>{time}</Text>
@@ -60,7 +63,7 @@ class CheckInScreen extends React.Component {
         } else {
           return (
             <TouchableOpacity key={checkIn.id || index}>
-              <Text style={Style.text}>FUCK</Text>
+              <Text style={Style.text}>Create a new Check In</Text>
             </TouchableOpacity>
           )
         }
@@ -74,11 +77,22 @@ class CheckInScreen extends React.Component {
     }
   }
 
+  viewCheckIn = (checkInId) => {
+    this.props.fetchCheckIn(checkInId)
+    this.props.navigation.navigate('ViewCheckIn')
+  }
+
   render() {
+    let defaultColorArray = ['#00FFFF', '#17C8FF', '#329BFF', '#4C64FF', '#6536FF', '#8000FF']
     const { checkIns, checkInIsLoading, checkInErrorMessage} = this.props;
     return (
       <View style={Style.container}>
-        <Text style={Style.header}>{checkIns.length} Check Ins</Text>
+        <View style={Style.headerContainer}>
+          <Text style={Style.headerTitle}>{checkIns.length} Check-Ins</Text>
+          <TouchableOpacity style={Style.headerTitle} onPress={() => this.props.navigation.navigate('EmotionsScreen')}>
+            <Text style={Style.headerButton}>+</Text>
+          </TouchableOpacity>
+        </View>
         {checkInIsLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
@@ -102,16 +116,6 @@ class CheckInScreen extends React.Component {
 
         )}
         <View style={Style.buttonContainer}>
-            <Button
-              style={Style.link}
-              title="How are you feeling?"
-              onPress={() => this.props.navigation.navigate('EmotionsScreen')}
-            />
-            <Button
-              onPress={() => this.props.listCheckIns()}
-              style={Style.link}
-              title="List Checkins"
-            />
             <Button
               onPress={() => this.props.navigation.navigate('UserScreen')}
               style={Style.signUpLoginButton}
@@ -141,7 +145,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   listCheckIns: () => dispatch(CheckInActions.listCheckIns()),
-  fetchCheckIn: () => dispatch(CheckInActions.fetchCheckIn()),
+  fetchCheckIn: (checkInId) => dispatch(CheckInActions.fetchCheckIn(checkInId)),
 })
 
 export default connect(

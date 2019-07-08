@@ -7,14 +7,14 @@ Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
 Parse.serverURL = PARSE_URL
 const CheckIn = Parse.Object.extend('CheckIn')
 
-function fetchCheckIn() {
+function fetchCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
   const query = new Parse.Query(checkIn)
   return new Promise(function(resolve, reject) {
     query
-      .find()
+      .get(daCheckIn.checkInId)
       .then((data) => {
-        resolve(data)
+        resolve(data.toJSON())
       })
       .catch((error) => {
         reject(error.message)
@@ -29,10 +29,8 @@ function listCheckIns() {
     query
       .find()
       .then((data) => {
-        console.log(data)
         let getArray = []
         for (var i = 0; i < data.length; i++) {
-          console.log('adding to array', data[i].id)
           const query = new Parse.Query(checkIn)
           getArray.push(query.get(data[i].id))
         }

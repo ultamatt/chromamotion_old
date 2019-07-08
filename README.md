@@ -14,12 +14,13 @@ A project in React native to help users identify, track, and share their feeling
 
 ### Check-in review
 [X] Make a screen where you can see your previous check-ins
-  [X] Sorted by day/time
+  [X] Sorted by day/time newest up top
   [X] It's a 100% horizontal bar button that's the spectrum of how you felt.
-[ ] When you select a checkin, you're brought to a details page of it.
+  [X] New CheckIN bar above all checkIns
+[X] When you select a checkin, you're brought to a details page of it.
 
 ### Check-in details
-[ ] See the details of a check-in
+[X] See the details of a check-in
 
 ### Login/Sign up and Back End as a Service
 [ ] Integrate with an Authorication provider that also offers back end as a service.
