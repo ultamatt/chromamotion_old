@@ -6,7 +6,8 @@ export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    margin: 30,
   },
   error: {
     ...Fonts.style.normal,

@@ -34,6 +34,8 @@ export default StyleSheet.create({
   headerButton: {
     ...Fonts.style.h2,
     color: Colors.primary,
+    margin: 5,
+    padding: 5,
     textAlign: 'center',
   },
   headerContainer: {

@@ -1,20 +1,24 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, TextInput, Image } from 'react-native'
+import { PARSE_URL, PARSE_CLIENT_KEY, PARSE_APP_ID } from 'react-native-dotenv'
+import { Platform, Text, View, Button, ActivityIndicator, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import UserActions from 'App/Stores/User/Actions'
-import Style from './UserScreenStyle'
+import Style from './SignUpScreenStyle'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Parse from 'parse/react-native'
 
-class UserScreen extends React.Component {
+class SignUpScreen extends React.Component {
   constructor(props) {
     super(props)
+    Parse.setAsyncStorage(AsyncStorage)
   }
 
   componentDidMount() {
     this.props.fetchUser()
+    Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
+    Parse.serverURL = PARSE_URL
   }
 
   render() {
@@ -35,7 +39,7 @@ class UserScreen extends React.Component {
   }
 }
 
-UserScreen.propTypes = {
+SignUpScreen.propTypes = {
   user: PropTypes.object,
   userIsLoading: PropTypes.bool,
   userErrorMessage: PropTypes.string,
@@ -55,4 +59,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserScreen)
+)(SignUpScreen)

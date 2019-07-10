@@ -1,5 +1,6 @@
 import React from 'react'
 import { Alert, Platform, Text, View, ScrollView, RefreshControl, Button, ActivityIndicator, TouchableOpacity,Image } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -105,9 +106,12 @@ class CheckInScreen extends React.Component {
     return (
       <View style={Style.container}>
         <View style={Style.headerContainer}>
+          <TouchableOpacity style={Style.headerButton} onPress={() => this.props.navigation.navigate('UserScreen')}>
+            <Icon style={Style.headerButton} name="user-circle" size={30} color={Colors.primary} />
+          </TouchableOpacity>
           <Text style={Style.headerTitle}>{checkIns.length} Check-Ins</Text>
           <TouchableOpacity style={Style.headerTitle} onPress={() => this.props.navigation.navigate('EmotionsScreen')}>
-            <Text style={Style.headerButton}>+</Text>
+            <Icon style={Style.headerButton} name="plus-circle" size={30} color={Colors.primary} />
           </TouchableOpacity>
         </View>
         {checkInIsLoading ? (
@@ -132,13 +136,6 @@ class CheckInScreen extends React.Component {
           </ScrollView>
 
         )}
-        <View style={Style.buttonContainer}>
-            <Button
-              onPress={() => this.props.navigation.navigate('UserScreen')}
-              style={Style.signUpLoginButton}
-              title="Sign Up or Log In"
-            />
-        </View>
       </View>
     )
   }
