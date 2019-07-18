@@ -21,6 +21,13 @@ const style = {
   normal: {
     fontSize: size.regular,
   },
+  input: {
+    fontSize: size.input,
+  },
+  prompt: {
+    fontSize: size.input,
+    fontStyle: 'italic',
+  },
 }
 
 export default {

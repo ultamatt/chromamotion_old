@@ -1,8 +1,15 @@
 import { StyleSheet } from 'react-native'
 import Fonts from 'App/Theme/Fonts'
+import Colors from 'App/Theme/Colors'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+
 export default StyleSheet.create({
+  checkInButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,
@@ -10,9 +17,50 @@ export default StyleSheet.create({
   },
   error: {
     ...Fonts.style.normal,
-    color: 'red',
+    color: Colors.error,
     marginBottom: 5,
     textAlign: 'center',
+  },
+  formContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    margin: 20,
+  },
+  formSectionContainer: {
+    marginBottom: 20,
+  },
+  formSectionInput: {
+    ...Fonts.style.input,
+    backgroundColor: Colors.primary,
+    borderColor: Colors.alternate,
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 40,
+    padding: 5,
+  },
+  formSectionText: {
+    ...Fonts.style.prompt,
+    color: Colors.primary,
+    paddingBottom: 5,
+  },
+  headerButton: {
+    ...Fonts.style.h2,
+    color: Colors.primary,
+    margin: 5,
+    padding: 5,
+    textAlign: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: getStatusBarHeight(),
+  },
+  headerTitle: {
+    ...Fonts.style.h2,
+    color: Colors.primary,
+    margin: 5,
+    padding: 5,
+    textAlign: 'left',
   },
   instructions: {
     ...Fonts.style.normal,
