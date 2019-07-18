@@ -24,12 +24,11 @@ class UserScreen extends React.Component {
       return (
         <>
           <View style={Style.headerContainer}>
-            <Text style={Style.headerTitle}>User Information </Text>
+            <Text style={Style.headerTitle}>User Information</Text>
           </View>
           <View style={Style.container}>
+            <Text style={Style.title}>Welcome Back</Text>
             <Text style={Style.title}>{user.username}</Text>
-            <Text style={Style.normal}>{Object.keys(user)}</Text>
-            <Text style={Style.normal}>{userLoggedIn}</Text>
             <View style={Style.checkInButtons}>
               <Button onPress={() => { this.props.logOutUser()}} title="Log Out" />
             </View>
@@ -44,14 +43,11 @@ class UserScreen extends React.Component {
           </View>
           <View style={Style.formContainer}>
             <View style={Style.formSectionContainer}>
-              <Text style={Style.formSectionText}>{JSON.stringify(user)}</Text>
-            </View>
-            <View style={Style.formSectionContainer}>
-              <Text style={Style.formSectionText}>Username {username}</Text>
+              <Text style={Style.formSectionText}>Username</Text>
               <TextInput style={Style.formSectionInput} placeholder="Username" autoCapitalize="none" autoCompleteType="username" onChangeText={(text) => this.setState({username: text})}/>
             </View>
             <View style={Style.formSectionContainer}>
-              <Text style={Style.formSectionText}>Password {password}</Text>
+              <Text style={Style.formSectionText}>Password</Text>
               <TextInput style={Style.formSectionInput} placeholder="Password" autoCapitalize="none" secureTextEntry={true} autoCompleteType="password" onChangeText={(text) => this.setState({password: text})}/>
             </View>
             {userErrorMessage != '' &&

@@ -14,9 +14,9 @@ function fetchUser() {
         if (user != null) {
           const query = new Parse.Query(Parse.User)
           query
-            .get(user.objectId)
+            .get(user.id)
             .then((data) => {
-              resolve(data.JSON())
+              resolve(data.toJSON())
             })
             .catch((error) => {
               reject(error.message)
@@ -40,7 +40,7 @@ function logInUser(daUser) {
       .logIn()
       .then((data) => {
         if (data != null) {
-          resolve(data)
+          resolve(data.toJSON())
         } else {
           resolve({})
         }
@@ -60,7 +60,7 @@ function signUpUser(daUser) {
       .signUp()
       .then((data) => {
         if (data != null) {
-          resolve(data)
+          resolve(data.toJSON())
         } else {
           resolve({})
         }

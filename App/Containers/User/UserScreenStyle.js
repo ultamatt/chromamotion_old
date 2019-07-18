@@ -70,6 +70,7 @@ export default StyleSheet.create({
   },
   loading: {
     ...Fonts.style.normal,
+    color: Colors.primary,
     marginBottom: 5,
     textAlign: 'center',
   },
@@ -89,11 +90,13 @@ export default StyleSheet.create({
   },
   text: {
     ...Fonts.style.normal,
+    color: Colors.primary,
     marginBottom: 5,
     textAlign: 'center',
   },
   title: {
     ...Fonts.style.h2,
+    color: Colors.primary,
     marginBottom: 10,
     textAlign: 'center',
   },
