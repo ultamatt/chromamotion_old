@@ -63,7 +63,6 @@ export function* postCheckIn(daCheckIn) {
 
   // Fetch checkIn informations from an API
   const checkIn = yield call(checkInService.postCheckIn, daCheckIn)
-  console.log(checkIn)
   if (checkIn) {
     yield put(CheckInActions.postCheckInSuccess(checkIn))
   } else {

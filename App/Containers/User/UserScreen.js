@@ -11,22 +11,34 @@ import Parse from 'parse/react-native'
 class UserScreen extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      username:'',
+      password: ''
+    }
   }
 
   componentDidMount() {
-    this.props.fetchUser()
+    //this.props.fetchUser()
   }
 
   renderUserDetailsOrLoginOrSignUp = () => {
-    const { userLoggedIn } = this.props;
-    if(userLoggedIn){
+    const { user, userLoggedIn, userError } = this.props;
+    const { username, password } = this.state;
+    if(userLoggedIn == true && Object.keys(user).length > 0){
       return (
-        <View style={Style.headerContainer}>
-          <Text style={Style.headerTitle}>User Information </Text>
-          <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} />
-          <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} />
-          <Button onPress={this.props.fetchUser} title="Sign In" />
-        </View>
+        <>
+          <View style={Style.headerContainer}>
+            <Text style={Style.headerTitle}>User Information </Text>
+          </View>
+          <View style={Style.container}>
+            <Text style={Style.title}>{user.username}</Text>
+            <Text style={Style.normal}>{JSON.stringify(user)}</Text>
+            <Text style={Style.normal}>{userLoggedIn}</Text>
+            <View style={Style.checkInButtons}>
+              <Button onPress={() => { this.props.logOutUser()}} title="Log Out" />
+            </View>
+          </View>
+        </>
       )
     } else {
       return (
@@ -36,19 +48,22 @@ class UserScreen extends React.Component {
           </View>
           <View style={Style.formContainer}>
             <View style={Style.formSectionContainer}>
-              <Text style={Style.formSectionText}>Username</Text>
-              <TextInput style={Style.formSectionInput} placeholder="Username" autoCapitalize="none" autoCompleteType="username"/>
+              <Text style={Style.formSectionText}>{JSON.stringify(user)}</Text>
             </View>
             <View style={Style.formSectionContainer}>
-              <Text style={Style.formSectionText}>Password</Text>
-              <TextInput style={Style.formSectionInput} placeholder="Password" autoCapitalize="none" secureTextEntry={true} autoCompleteType="password"/>
+              <Text style={Style.formSectionText}>Username {username}</Text>
+              <TextInput style={Style.formSectionInput} placeholder="Username" autoCapitalize="none" autoCompleteType="username" onChangeText={(text) => this.setState({username: text})}/>
             </View>
-            <View style={Style.checkInButtons}>
-              <Button onPress={this.props.fetchUser} title="Sign Up" />
-              <Button onPress={this.props.fetchUser} title="Log In" />
+            <View style={Style.formSectionContainer}>
+              <Text style={Style.formSectionText}>Password {password}</Text>
+              <TextInput style={Style.formSectionInput} placeholder="Password" autoCapitalize="none" secureTextEntry={true} autoCompleteType="password" onChangeText={(text) => this.setState({password: text})}/>
             </View>
+            {userError != '' &&
+              <Text style={Style.error}>{userError}</Text>
+            }
             <View style={Style.checkInButtons}>
-              <Button onPress={this.props.fetchUser} title="Forgot my password" />
+              <Button onPress={() => { this.props.signUpUser(username, password)}} title="Sign Up" />
+              <Button onPress={() => { this.props.logInUser(username, password)}} title="Log In" />
             </View>
           </View>
         </>
@@ -71,21 +86,27 @@ class UserScreen extends React.Component {
 
 UserScreen.propTypes = {
   user: PropTypes.object,
+  userError: PropTypes.string,
   userLoggedIn: PropTypes.bool,
   userIsLoading: PropTypes.bool,
   userErrorMessage: PropTypes.string,
-  fetchUser: PropTypes.func,
+  signUpUser: PropTypes.func,
+  logInUser: PropTypes.func,
+  logOutUser: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
   user: state.user.user,
+  userError: state.user.userError,
   userLoggedIn: state.user.userLoggedIn,
   userIsLoading: state.user.userIsLoading,
   userErrorMessage: state.user.userErrorMessage,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(UserActions.fetchUser()),
+  signUpUser: (username, password) => dispatch(UserActions.signUpUser(username, password)),
+  logInUser: (username, password) => dispatch(UserActions.logInUser(username, password)),
+  logOutUser: () => dispatch(UserActions.logOutUser()),
 })
 
 export default connect(

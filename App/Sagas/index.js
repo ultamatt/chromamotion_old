@@ -2,7 +2,7 @@ import { takeLatest, all } from 'redux-saga/effects'
 import { UserTypes } from 'App/Stores/User/Actions'
 import { CheckInTypes } from 'App/Stores/CheckIn/Actions'
 import { StartupTypes } from 'App/Stores/Startup/Actions'
-import { fetchUser } from './UserSaga'
+import { fetchUser, signUpUser, logInUser, logOutUser } from './UserSaga'
 import {
   listCheckIns,
   fetchCheckIn,
@@ -21,6 +21,9 @@ export default function* root() {
     takeLatest(StartupTypes.STARTUP, startup),
     // Call `fetchUser()` when a `FETCH_USER` action is triggered
     takeLatest(UserTypes.FETCH_USER, fetchUser),
+    takeLatest(UserTypes.LOG_IN_USER, logInUser),
+    takeLatest(UserTypes.SIGN_UP_USER, signUpUser),
+    takeLatest(UserTypes.LOG_OUT_USER, logOutUser),
 
     takeLatest(CheckInTypes.SELECT_EMOTION, selectEmotion),
     takeLatest(CheckInTypes.LIST_CHECK_INS, listCheckIns),

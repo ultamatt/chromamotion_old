@@ -21,3 +21,45 @@ export function* fetchUser() {
     yield put(UserActions.fetchUserFailure('There was an error while fetching user informations.'))
   }
 }
+
+export function* signUpUser(daUser) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(UserActions.signUpUserLoading())
+
+  // Fetch checkIn informations from an API
+  const user = yield call(userService.signUpUser, daUser)
+  if (user) {
+    yield put(UserActions.signUpUserSuccess(user))
+  } else {
+    yield put(UserActions.signUpUserFailure('There was an error while signing in.'))
+  }
+}
+
+export function* logInUser(daUser) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(UserActions.logInUserLoading())
+
+  // Fetch checkIn informations from an API
+  const user = yield call(userService.logInUser, daUser)
+  if (user) {
+    yield put(UserActions.logInUserSuccess(user))
+  } else {
+    yield put(UserActions.logInUserFailure('There was an error while logging in.'))
+  }
+}
+
+export function* logOutUser() {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(UserActions.logOutUserLoading())
+
+  // Fetch checkOut informations from an API
+  const user = yield call(userService.logOutUser)
+  if (user) {
+    yield put(UserActions.logOutUserSuccess())
+  } else {
+    yield put(UserActions.logOutUserFailure('There was an error while logging out.'))
+  }
+}

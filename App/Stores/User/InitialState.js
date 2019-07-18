@@ -3,6 +3,7 @@
  */
 export const INITIAL_STATE = {
   user: {},
+  userError: '',
   userLoggedIn: false,
   userIsLoading: false,
   userErrorMessage: null,

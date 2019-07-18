@@ -20,6 +20,33 @@ import { createActions } from 'reduxsauce'
  */
 const { Types, Creators } = createActions({
   // Fetch user informations
+  logOutUser: null,
+  // The operation has started and is loading
+  logOutUserLoading: null,
+  // User informations were successfully logOuted
+  logOutUserSuccess: null,
+  // An error occurred
+  logOutUserFailure: ['errorMessage'],
+
+  // Fetch user informations
+  logInUser: ['username', 'password'],
+  // The operation has started and is loading
+  logInUserLoading: null,
+  // User informations were successfully logIned
+  logInUserSuccess: ['user'],
+  // An error occurred
+  logInUserFailure: ['errorMessage'],
+
+  // Fetch user informations
+  signUpUser: ['username', 'password'],
+  // The operation has started and is loading
+  signUpUserLoading: null,
+  // User informations were successfully signUped
+  signUpUserSuccess: ['user'],
+  // An error occurred
+  signUpUserFailure: ['errorMessage'],
+
+  // Fetch user informations
   fetchUser: null,
   // The operation has started and is loading
   fetchUserLoading: null,
