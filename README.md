@@ -8,9 +8,9 @@ A project in React native to help users identify, track, and share their feeling
 - [X] Create emotion picker page. Needs to be scrollable.
   - [X] Find a better way to match colors to feelings?
 - [X] Make emotion component that can be selected or deselected
-- [ ] Make a rollup bar at the top that shows the current spectrum of emotions
 - [X] Make a way to save these selections
   - [X] Tie selections into redux saga
+- [ ] Make a rollup bar at the top that shows the current spectrum of emotions
 
 ### Check-in review
 - [X] Make a screen where you can see your previous check-ins
@@ -18,15 +18,29 @@ A project in React native to help users identify, track, and share their feeling
   - [X] It's a 100% horizontal bar button that's the spectrum of how you felt.
   - [X] New CheckIN bar above all checkIns
 - [X] When you select a checkin, you're brought to a details page of it.
+- [ ] When saving a checkin, associate the device's UUID
+  - [ ] Likely use https://github.com/lazywei/react-native-device-uuid
+- [ ] When saving a checkin, associate the logged in user, if there is one
 
 ### Check-in details
 - [X] See the details of a check-in
 - [ ] Delete a checkin
 
 ### Login/Sign up and Back End as a Service
-- [ ] Integrate with an Authorication provider that also offers back end as a service.
-- [ ] Allow users to login or sign up for this as a service
-- [ ] Begin storing their check-ins on that service.
+- [X] Integrate with an Authorication provider that also offers back end as a service.
+- [X] Allow users to login or sign up for this as a service
+- [X] Begin storing their check-ins on that service.
+- [X] Load their user when loading the application
+- [X] Allow logout
+- [ ] Make button to associate all previous checkins with your new login. (If previously logged out)
+
+### Friends
+- [ ] Default view for friends screen is their most recent checkin.
+- [ ] Add a screen to search for a user by name
+- [ ] Add ability to send friendship request
+- [ ] Add ability to see friendship requests
+- [ ] Add ability to approve or reject friendship request
+- [ ] Add ability to share checkin with users who are your friends.
 
 ### About Screen
 - [ ] Create a place to link back to my repo, and personal website
