@@ -17,12 +17,8 @@ class UserScreen extends React.Component {
     }
   }
 
-  componentDidMount() {
-    //this.props.fetchUser()
-  }
-
   renderUserDetailsOrLoginOrSignUp = () => {
-    const { user, userLoggedIn, userError } = this.props;
+    const { user, userLoggedIn, userErrorMessage } = this.props;
     const { username, password } = this.state;
     if(userLoggedIn == true && Object.keys(user).length > 0){
       return (
@@ -32,7 +28,7 @@ class UserScreen extends React.Component {
           </View>
           <View style={Style.container}>
             <Text style={Style.title}>{user.username}</Text>
-            <Text style={Style.normal}>{JSON.stringify(user)}</Text>
+            <Text style={Style.normal}>{Object.keys(user)}</Text>
             <Text style={Style.normal}>{userLoggedIn}</Text>
             <View style={Style.checkInButtons}>
               <Button onPress={() => { this.props.logOutUser()}} title="Log Out" />
@@ -58,8 +54,8 @@ class UserScreen extends React.Component {
               <Text style={Style.formSectionText}>Password {password}</Text>
               <TextInput style={Style.formSectionInput} placeholder="Password" autoCapitalize="none" secureTextEntry={true} autoCompleteType="password" onChangeText={(text) => this.setState({password: text})}/>
             </View>
-            {userError != '' &&
-              <Text style={Style.error}>{userError}</Text>
+            {userErrorMessage != '' &&
+              <Text style={Style.error}>{userErrorMessage}</Text>
             }
             <View style={Style.checkInButtons}>
               <Button onPress={() => { this.props.signUpUser(username, password)}} title="Sign Up" />
@@ -86,7 +82,6 @@ class UserScreen extends React.Component {
 
 UserScreen.propTypes = {
   user: PropTypes.object,
-  userError: PropTypes.string,
   userLoggedIn: PropTypes.bool,
   userIsLoading: PropTypes.bool,
   userErrorMessage: PropTypes.string,
@@ -97,7 +92,6 @@ UserScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.user.user,
-  userError: state.user.userError,
   userLoggedIn: state.user.userLoggedIn,
   userIsLoading: state.user.userIsLoading,
   userErrorMessage: state.user.userErrorMessage,

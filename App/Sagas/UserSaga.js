@@ -14,11 +14,13 @@ export function* fetchUser() {
   yield put(UserActions.fetchUserLoading())
 
   // Fetch user informations from an API
-  const user = yield call(userService.fetchUser)
-  if (user) {
+  try {
+    const user = yield call(userService.fetchUser)
     yield put(UserActions.fetchUserSuccess(user))
-  } else {
-    yield put(UserActions.fetchUserFailure('There was an error while fetching user informations.'))
+  } catch (error) {
+    yield put(
+      UserActions.fetchUserFailure(error || 'There was an error while fetching user informations.')
+    )
   }
 }
 
@@ -28,11 +30,11 @@ export function* signUpUser(daUser) {
   yield put(UserActions.signUpUserLoading())
 
   // Fetch checkIn informations from an API
-  const user = yield call(userService.signUpUser, daUser)
-  if (user) {
+  try {
+    const user = yield call(userService.signUpUser, daUser)
     yield put(UserActions.signUpUserSuccess(user))
-  } else {
-    yield put(UserActions.signUpUserFailure('There was an error while signing in.'))
+  } catch (error) {
+    yield put(UserActions.signUpUserFailure(error || 'There was an error while signing up.'))
   }
 }
 
@@ -42,11 +44,11 @@ export function* logInUser(daUser) {
   yield put(UserActions.logInUserLoading())
 
   // Fetch checkIn informations from an API
-  const user = yield call(userService.logInUser, daUser)
-  if (user) {
+  try {
+    const user = yield call(userService.logInUser, daUser)
     yield put(UserActions.logInUserSuccess(user))
-  } else {
-    yield put(UserActions.logInUserFailure('There was an error while logging in.'))
+  } catch (error) {
+    yield put(UserActions.logInUserFailure(error || 'There was an error while logging in.'))
   }
 }
 

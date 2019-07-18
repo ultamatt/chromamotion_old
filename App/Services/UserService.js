@@ -6,19 +6,21 @@ Parse.setAsyncStorage(AsyncStorage)
 Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
 Parse.serverURL = PARSE_URL
 
-/**
- * This is an example of a service that connects to a 3rd party API.
- *
- * Feel free to remove this example from your application.
- */
-
 function fetchUser() {
   return new Promise(function(resolve, reject) {
     Parse.User.enableUnsafeCurrentUser()
     Parse.User.currentAsync()
-      .then((data) => {
-        if (data != null) {
-          resolve(data)
+      .then((user) => {
+        if (user != null) {
+          const query = new Parse.Query(Parse.User)
+          query
+            .get(user.objectId)
+            .then((data) => {
+              resolve(data.JSON())
+            })
+            .catch((error) => {
+              reject(error.message)
+            })
         } else {
           resolve({})
         }
@@ -30,10 +32,12 @@ function fetchUser() {
 }
 
 function logInUser(daUser) {
+  let user = new Parse.User()
+  user.set('username', daUser.username)
+  user.set('password', daUser.password)
   return new Promise(function(resolve, reject) {
-    let user = new Parse.User()
     user
-      .logIn(daUser.username, daUser.password)
+      .logIn()
       .then((data) => {
         if (data != null) {
           resolve(data)
