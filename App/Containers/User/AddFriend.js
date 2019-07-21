@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { PropTypes } from 'prop-types'
 import UserActions from 'App/Stores/User/Actions'
+import FriendActions from 'App/Stores/Friend/Actions'
 import Style from './AddFriendStyle'
 import Colors from 'App/Theme/Colors'
 import { Images } from 'App/Theme'
@@ -128,7 +129,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   searchUsers: (query) => dispatch(UserActions.searchUsers(query)),
-  createFriendRequest: (user) => dispatch(UserActions.createFriendRequest(user))
+  createFriendRequest: (user) => dispatch(FriendActions.createFriendRequest(user))
 })
 
 export default connect(

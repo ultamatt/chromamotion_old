@@ -2,14 +2,8 @@ import { takeLatest, all } from 'redux-saga/effects'
 import { UserTypes } from 'App/Stores/User/Actions'
 import { CheckInTypes } from 'App/Stores/CheckIn/Actions'
 import { StartupTypes } from 'App/Stores/Startup/Actions'
-import {
-  fetchUser,
-  searchUsers,
-  createFriendRequest,
-  signUpUser,
-  logInUser,
-  logOutUser,
-} from './UserSaga'
+import { fetchUser, searchUsers, signUpUser, logInUser, logOutUser } from './UserSaga'
+import { createFriendRequest } from './FriendSaga'
 
 import {
   listCheckIns,
