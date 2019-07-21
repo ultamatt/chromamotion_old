@@ -1,9 +1,11 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, TextInput, Image } from 'react-native'
+import { Platform, Text, View, Button, ActivityIndicator, TouchableOpacity, TextInput, KeyboardAvoidingView, Image } from 'react-native'
 import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { PropTypes } from 'prop-types'
 import UserActions from 'App/Stores/User/Actions'
 import Style from './UserScreenStyle'
+import Colors from 'App/Theme/Colors'
 import { Images } from 'App/Theme'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Parse from 'parse/react-native'
@@ -24,11 +26,15 @@ class UserScreen extends React.Component {
       return (
         <>
           <View style={Style.headerContainer}>
-            <Text style={Style.headerTitle}>User Information</Text>
+            <TouchableOpacity style={Style.headerButton} onPress={() => this.props.navigation.navigate('MainScreen')}>
+              <Icon style={Style.headerButton} name="arrow-circle-left" size={30} color={Colors.primary} />
+            </TouchableOpacity>
+            <TouchableOpacity style={Style.headerButton} onPress={() => this.props.navigation.navigate('AddFriend')}>
+              <Icon style={Style.headerButton} name="user-plus" size={30} color={Colors.primary} />
+            </TouchableOpacity>
           </View>
           <View style={Style.container}>
-            <Text style={Style.title}>Welcome Back</Text>
-            <Text style={Style.title}>{user.username}</Text>
+            <Text style={Style.title}>Welcome {user.username}</Text>
             <View style={Style.checkInButtons}>
               <Button onPress={() => { this.props.logOutUser()}} title="Log Out" />
             </View>
@@ -38,10 +44,10 @@ class UserScreen extends React.Component {
     } else {
       return (
         <>
-          <View style={Style.headerContainer}>
-            <Text style={Style.headerTitle}>Log In or Sign up</Text>
-          </View>
-          <View style={Style.formContainer}>
+          <KeyboardAvoidingView style={Style.formContainer} behavior="padding" enabled>
+            <View style={Style.formSectionContainer}>
+              <Text style={Style.headerTitle}>Log In or Sign up</Text>
+            </View>
             <View style={Style.formSectionContainer}>
               <Text style={Style.formSectionText}>Username</Text>
               <TextInput style={Style.formSectionInput} placeholder="Username" autoCapitalize="none" autoCompleteType="username" onChangeText={(text) => this.setState({username: text})}/>
@@ -57,7 +63,7 @@ class UserScreen extends React.Component {
               <Button onPress={() => { this.props.signUpUser(username, password)}} title="Sign Up" />
               <Button onPress={() => { this.props.logInUser(username, password)}} title="Log In" />
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </>
       )
     }

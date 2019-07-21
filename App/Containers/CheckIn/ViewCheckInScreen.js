@@ -24,7 +24,6 @@ class ViewCheckInScreen extends React.Component {
 
   renderEmotionList = () => {
     let { checkIn } = this.props;
-    console.log(checkIn);
     if(checkIn.emotions == null){
       return(
         <>

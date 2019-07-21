@@ -31,6 +31,28 @@ function fetchUser() {
   })
 }
 
+function searchUsers(daQuery) {
+  return new Promise(function(resolve, reject) {
+    const query = new Parse.Query(Parse.User)
+    query.startsWith('username', daQuery.query)
+    query
+      .find()
+      .then((daUsers) => {
+        if (daUsers != null) {
+          let users = daUsers.map((user) => {
+            return user.toJSON()
+          })
+          resolve(users)
+        } else {
+          resolve([])
+        }
+      })
+      .catch((error) => {
+        reject(error.message)
+      })
+  })
+}
+
 function logInUser(daUser) {
   let user = new Parse.User()
   user.set('username', daUser.username)
@@ -89,6 +111,7 @@ function logOutUser(daUser) {
 
 export const userService = {
   fetchUser,
+  searchUsers,
   logInUser,
   signUpUser,
   logOutUser,

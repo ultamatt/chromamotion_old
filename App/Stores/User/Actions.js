@@ -54,6 +54,15 @@ const { Types, Creators } = createActions({
   fetchUserSuccess: ['user'],
   // An error occurred
   fetchUserFailure: ['errorMessage'],
+
+  // Fetch user informations
+  searchUsers: ['query'],
+  // The operation has started and is loading
+  searchUsersLoading: null,
+  // User informations were successfully searched
+  searchUsersSuccess: ['users'],
+  // An error occurred
+  searchUsersFailure: ['errorMessage'],
 })
 
 export const UserTypes = Types

@@ -19,7 +19,7 @@ A project in React native to help users identify, track, and share their feeling
   - [X] New CheckIN bar above all checkIns
 - [X] When you select a checkin, you're brought to a details page of it.
 - [X] When saving a checkin, associate the device's UUID
-- [ ] When saving a checkin, associate the logged in user, if there is one
+- [X] When saving a checkin, associate the logged in user, if there is one
 
 ### Check-in details
 - [X] See the details of a check-in

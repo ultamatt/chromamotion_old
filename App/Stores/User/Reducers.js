@@ -11,7 +11,7 @@ import { UserTypes } from './Actions'
 export const fetchUserLoading = (state) => ({
   ...state,
   userIsLoading: true,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const fetchUserSuccess = (state, { user }) => ({
@@ -19,7 +19,7 @@ export const fetchUserSuccess = (state, { user }) => ({
   user: user,
   userLoggedIn: user != null,
   userIsLoading: false,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const fetchUserFailure = (state, { errorMessage }) => ({
@@ -29,10 +29,30 @@ export const fetchUserFailure = (state, { errorMessage }) => ({
   userErrorMessage: errorMessage,
 })
 
+export const searchUsersLoading = (state) => ({
+  ...state,
+  userIsLoading: true,
+  userErrorMessage: '',
+})
+
+export const searchUsersSuccess = (state, { users }) => ({
+  ...state,
+  users: users,
+  userIsLoading: false,
+  userErrorMessage: '',
+})
+
+export const searchUsersFailure = (state, { errorMessage }) => ({
+  ...state,
+  users: [],
+  userIsLoading: false,
+  userErrorMessage: errorMessage,
+})
+
 export const signUpUserLoading = (state) => ({
   ...state,
   userIsLoading: true,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const signUpUserSuccess = (state, { user }) => ({
@@ -40,7 +60,7 @@ export const signUpUserSuccess = (state, { user }) => ({
   user: user,
   userLoggedIn: true,
   userIsLoading: false,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const signUpUserFailure = (state, { errorMessage }) => ({
@@ -53,7 +73,7 @@ export const signUpUserFailure = (state, { errorMessage }) => ({
 export const logInUserLoading = (state) => ({
   ...state,
   userIsLoading: true,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const logInUserSuccess = (state, { user }) => ({
@@ -61,7 +81,7 @@ export const logInUserSuccess = (state, { user }) => ({
   user: user,
   userLoggedIn: true,
   userIsLoading: false,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const logInUserFailure = (state, { errorMessage }) => ({
@@ -74,7 +94,7 @@ export const logInUserFailure = (state, { errorMessage }) => ({
 export const logOutUserLoading = (state) => ({
   ...state,
   userIsLoading: true,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const logOutUserSuccess = (state) => ({
@@ -82,7 +102,7 @@ export const logOutUserSuccess = (state) => ({
   user: {},
   userLoggedIn: false,
   userIsLoading: false,
-  userErrorMessage: null,
+  userErrorMessage: '',
 })
 
 export const logOutUserFailure = (state, { errorMessage }) => ({
@@ -108,4 +128,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [UserTypes.LOG_OUT_USER_LOADING]: logOutUserLoading,
   [UserTypes.LOG_OUT_USER_SUCCESS]: logOutUserSuccess,
   [UserTypes.LOG_OUT_USER_FAILURE]: logOutUserFailure,
+  [UserTypes.SEARCH_USERS_LOADING]: searchUsersLoading,
+  [UserTypes.SEARCH_USERS_SUCCESS]: searchUsersSuccess,
+  [UserTypes.SEARCH_USERS_FAILURE]: searchUsersFailure,
 })

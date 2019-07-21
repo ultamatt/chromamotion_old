@@ -23,6 +23,21 @@ export function* fetchUser() {
   }
 }
 
+export function* searchUsers(daQuery) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(UserActions.searchUsersLoading())
+
+  // Fetch user informations from an API
+  try {
+    const users = yield call(userService.searchUsers, daQuery)
+    yield put(UserActions.searchUsersSuccess(users))
+  } catch (error) {
+    console.error(error)
+    yield put(UserActions.searchUsersFailure(error || 'There was an error while fetching users.'))
+  }
+}
+
 export function* signUpUser(daUser) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
