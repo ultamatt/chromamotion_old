@@ -22,8 +22,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   formContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     margin: 20,
   },
   formSectionContainer: {
@@ -52,15 +51,14 @@ export default StyleSheet.create({
   },
   headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     paddingTop: getStatusBarHeight(),
   },
   headerTitle: {
     ...Fonts.style.h2,
     color: Colors.primary,
-    margin: 5,
-    padding: 5,
-    textAlign: 'left',
+    paddingTop: 15,
+    textAlign: 'center',
   },
   instructions: {
     ...Fonts.style.normal,

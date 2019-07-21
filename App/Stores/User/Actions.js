@@ -63,6 +63,15 @@ const { Types, Creators } = createActions({
   searchUsersSuccess: ['users'],
   // An error occurred
   searchUsersFailure: ['errorMessage'],
+
+  // Fetch user informations
+  createFriendRequest: ['user'],
+  // The operation has started and is loading
+  createFriendRequestLoading: null,
+  // User informations were successfully searched
+  createFriendRequestSuccess: null,
+  // An error occurred
+  createFriendRequestFailure: ['errorMessage'],
 })
 
 export const UserTypes = Types

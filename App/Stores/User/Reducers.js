@@ -49,6 +49,24 @@ export const searchUsersFailure = (state, { errorMessage }) => ({
   userErrorMessage: errorMessage,
 })
 
+export const createFriendRequestLoading = (state) => ({
+  ...state,
+  userIsLoading: true,
+  userErrorMessage: '',
+})
+
+export const createFriendRequestSuccess = (state) => ({
+  ...state,
+  userIsLoading: false,
+  userErrorMessage: '',
+})
+
+export const createFriendRequestFailure = (state, { errorMessage }) => ({
+  ...state,
+  userIsLoading: false,
+  userErrorMessage: errorMessage,
+})
+
 export const signUpUserLoading = (state) => ({
   ...state,
   userIsLoading: true,
@@ -131,4 +149,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [UserTypes.SEARCH_USERS_LOADING]: searchUsersLoading,
   [UserTypes.SEARCH_USERS_SUCCESS]: searchUsersSuccess,
   [UserTypes.SEARCH_USERS_FAILURE]: searchUsersFailure,
+  [UserTypes.CREATE_FRIEND_REQUEST_LOADING]: createFriendRequestLoading,
+  [UserTypes.CREATE_FRIEND_REQUEST_SUCCESS]: createFriendRequestSuccess,
+  [UserTypes.CREATE_FRIEND_REQUEST_FAILURE]: createFriendRequestFailure,
 })

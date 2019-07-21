@@ -38,6 +38,23 @@ export function* searchUsers(daQuery) {
   }
 }
 
+export function* createFriendRequest(daUser) {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(UserActions.createFriendRequestLoading())
+
+  // Fetch user informations from an API
+  try {
+    const request = yield call(userService.createFriendRequest, daUser)
+    yield put(UserActions.createFriendRequestSuccess(request))
+  } catch (error) {
+    console.error(error)
+    yield put(
+      UserActions.createFriendRequestFailure(error || 'There was an error while fetching users.')
+    )
+  }
+}
+
 export function* signUpUser(daUser) {
   // Dispatch a redux action using `put()`
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html

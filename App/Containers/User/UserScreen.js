@@ -29,12 +29,12 @@ class UserScreen extends React.Component {
             <TouchableOpacity style={Style.headerButton} onPress={() => this.props.navigation.navigate('MainScreen')}>
               <Icon style={Style.headerButton} name="arrow-circle-left" size={30} color={Colors.primary} />
             </TouchableOpacity>
+            <Text style={Style.headerTitle}>{user.username}</Text>
             <TouchableOpacity style={Style.headerButton} onPress={() => this.props.navigation.navigate('AddFriend')}>
               <Icon style={Style.headerButton} name="user-plus" size={30} color={Colors.primary} />
             </TouchableOpacity>
           </View>
           <View style={Style.container}>
-            <Text style={Style.title}>Welcome {user.username}</Text>
             <View style={Style.checkInButtons}>
               <Button onPress={() => { this.props.logOutUser()}} title="Log Out" />
             </View>

@@ -46,8 +46,7 @@ export default StyleSheet.create({
   headerButton: {
     ...Fonts.style.h2,
     color: Colors.primary,
-    margin: 5,
-    padding: 5,
+    padding: 10,
     textAlign: 'center',
   },
   headerContainer: {
@@ -58,9 +57,8 @@ export default StyleSheet.create({
   headerTitle: {
     ...Fonts.style.h2,
     color: Colors.primary,
-    margin: 5,
-    padding: 5,
-    textAlign: 'left',
+    paddingTop: 15,
+    textAlign: 'center',
   },
   instructions: {
     ...Fonts.style.normal,
