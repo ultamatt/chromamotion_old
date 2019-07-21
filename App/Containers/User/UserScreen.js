@@ -1,9 +1,10 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, TouchableOpacity, TextInput, KeyboardAvoidingView, Image } from 'react-native'
+import { ScrollView, Platform, Text, View, Button, ActivityIndicator, TouchableOpacity, TextInput, KeyboardAvoidingView, Image } from 'react-native'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { PropTypes } from 'prop-types'
 import UserActions from 'App/Stores/User/Actions'
+import FriendActions from 'App/Stores/Friend/Actions'
 import Style from './UserScreenStyle'
 import Colors from 'App/Theme/Colors'
 import { Images } from 'App/Theme'
@@ -16,6 +17,38 @@ class UserScreen extends React.Component {
     this.state = {
       username:'',
       password: ''
+    }
+  }
+
+  componentDidMount() {
+    // Run the startup saga when the application is starting
+    this.props.fetchFriendRequest()
+  }
+
+  renderFriendRequests = () => {
+    const { friendRequests } = this.props;
+    if(friendRequests.length == 0){
+      return(
+        <>
+          <Text style={Style.text}>You have no friend requests.</Text>
+        </>
+      )
+    } else {
+      return friendRequests.map((request, index) => {
+        return (
+          <View key={index} style={Style.friendRequestContainer}>
+            <TouchableOpacity style={Style.friendRequestButton} onPress={() => this.props.navigation.navigate('AddFriend')}>
+              <Icon style={Style.friendRequestButton} name="user-plus" size={30} color={Colors.primary} />
+            </TouchableOpacity>
+            <Text style={Style.friendRequestTitle}>
+              {request.from.username}
+            </Text>
+            <TouchableOpacity style={Style.friendRequestButton} onPress={() => this.props.navigation.navigate('AddFriend')}>
+              <Icon style={Style.friendRequestButton} name="user-plus" size={30} color={Colors.primary} />
+            </TouchableOpacity>
+          </View>
+        )
+      });
     }
   }
 
@@ -39,6 +72,14 @@ class UserScreen extends React.Component {
               <Button onPress={() => { this.props.logOutUser()}} title="Log Out" />
             </View>
           </View>
+          <ScrollView>
+            <View style={Style.container}>
+              <View style={Style.headerContainer}>
+                <Text style={Style.headerTitle}>Friend Requests</Text>
+              </View>
+              {this.renderFriendRequests()}
+            </View>
+          </ScrollView>
         </>
       )
     } else {
@@ -90,9 +131,11 @@ UserScreen.propTypes = {
   signUpUser: PropTypes.func,
   logInUser: PropTypes.func,
   logOutUser: PropTypes.func,
+  fetchFriendRequest: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
+  friendRequests: state.friendRequest.friendRequests,
   user: state.user.user,
   userLoggedIn: state.user.userLoggedIn,
   userIsLoading: state.user.userIsLoading,
@@ -103,6 +146,7 @@ const mapDispatchToProps = (dispatch) => ({
   signUpUser: (username, password) => dispatch(UserActions.signUpUser(username, password)),
   logInUser: (username, password) => dispatch(UserActions.logInUser(username, password)),
   logOutUser: () => dispatch(UserActions.logOutUser()),
+  fetchFriendRequest: () => dispatch(FriendActions.fetchFriendRequest()),
 })
 
 export default connect(

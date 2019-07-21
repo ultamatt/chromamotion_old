@@ -1,9 +1,10 @@
 import { takeLatest, all } from 'redux-saga/effects'
 import { UserTypes } from 'App/Stores/User/Actions'
+import { FriendTypes } from 'App/Stores/Friend/Actions'
 import { CheckInTypes } from 'App/Stores/CheckIn/Actions'
 import { StartupTypes } from 'App/Stores/Startup/Actions'
 import { fetchUser, searchUsers, signUpUser, logInUser, logOutUser } from './UserSaga'
-import { createFriendRequest } from './FriendSaga'
+import { createFriendRequest, fetchFriendRequest } from './FriendSaga'
 
 import {
   listCheckIns,
@@ -25,10 +26,12 @@ export default function* root() {
     // Call `fetchUser()` when a `FETCH_USER` action is triggered
     takeLatest(UserTypes.FETCH_USER, fetchUser),
     takeLatest(UserTypes.SEARCH_USERS, searchUsers),
-    takeLatest(UserTypes.CREATE_FRIEND_REQUEST, createFriendRequest),
     takeLatest(UserTypes.LOG_IN_USER, logInUser),
     takeLatest(UserTypes.SIGN_UP_USER, signUpUser),
     takeLatest(UserTypes.LOG_OUT_USER, logOutUser),
+
+    takeLatest(FriendTypes.CREATE_FRIEND_REQUEST, createFriendRequest),
+    takeLatest(FriendTypes.FETCH_FRIEND_REQUEST, fetchFriendRequest),
 
     takeLatest(CheckInTypes.SELECT_EMOTION, selectEmotion),
     takeLatest(CheckInTypes.LIST_CHECK_INS, listCheckIns),

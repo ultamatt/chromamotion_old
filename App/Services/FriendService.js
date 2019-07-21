@@ -50,6 +50,36 @@ function createFriendRequest(daRequest) {
   })
 }
 
+function fetchFriendRequest() {
+  return new Promise(function(resolve, reject) {
+    Parse.User.enableUnsafeCurrentUser()
+    Parse.User.currentAsync().then((user) => {
+      if (user != null) {
+        console.log(user.id)
+        const query = new Parse.Query(FriendRequest)
+        query
+          .equalTo('to', user)
+          .include('from')
+          .find()
+          .then((friendRequests) => {
+            // Execute any logic that should take place after the object is saved.
+            resolve(
+              friendRequests.map((request) => {
+                return request.toJSON()
+              })
+            )
+          })
+          .catch((error) => {
+            reject(error.message)
+          })
+      } else {
+        reject('Please Log In')
+      }
+    })
+  })
+}
+
 export const friendService = {
   createFriendRequest,
+  fetchFriendRequest,
 }

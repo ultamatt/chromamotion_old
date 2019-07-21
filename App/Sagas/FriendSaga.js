@@ -26,3 +26,22 @@ export function* createFriendRequest(daUser) {
     )
   }
 }
+
+export function* fetchFriendRequest() {
+  // Dispatch a redux action using `put()`
+  // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
+  yield put(FriendActions.fetchFriendRequestLoading())
+
+  // Fetch user informations from an API
+  try {
+    const request = yield call(friendService.fetchFriendRequest)
+    yield put(FriendActions.fetchFriendRequestSuccess(request))
+  } catch (error) {
+    console.error(error)
+    yield put(
+      FriendActions.fetchFriendRequestFailure(
+        error || 'There was an error while creating a friend request.'
+      )
+    )
+  }
+}

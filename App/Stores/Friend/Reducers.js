@@ -25,6 +25,25 @@ export const createFriendRequestFailure = (state, { errorMessage }) => ({
   friendRequestIsLoading: false,
   friendRequestErrorMessage: errorMessage,
 })
+
+export const fetchFriendRequestLoading = (state) => ({
+  ...state,
+  friendRequestIsLoading: true,
+  friendRequestErrorMessage: '',
+})
+
+export const fetchFriendRequestSuccess = (state, { friendRequests }) => ({
+  ...state,
+  friendRequests: friendRequests,
+  friendRequestIsLoading: false,
+  friendRequestErrorMessage: '',
+})
+
+export const fetchFriendRequestFailure = (state, { errorMessage }) => ({
+  ...state,
+  friendRequestIsLoading: false,
+  friendRequestErrorMessage: errorMessage,
+})
 /**
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
@@ -32,4 +51,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [FriendTypes.CREATE_FRIEND_REQUEST_LOADING]: createFriendRequestLoading,
   [FriendTypes.CREATE_FRIEND_REQUEST_SUCCESS]: createFriendRequestSuccess,
   [FriendTypes.CREATE_FRIEND_REQUEST_FAILURE]: createFriendRequestFailure,
+  [FriendTypes.FETCH_FRIEND_REQUEST_LOADING]: fetchFriendRequestLoading,
+  [FriendTypes.FETCH_FRIEND_REQUEST_SUCCESS]: fetchFriendRequestSuccess,
+  [FriendTypes.FETCH_FRIEND_REQUEST_FAILURE]: fetchFriendRequestFailure,
 })

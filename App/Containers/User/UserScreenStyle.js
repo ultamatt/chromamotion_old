@@ -43,6 +43,22 @@ export default StyleSheet.create({
     color: Colors.primary,
     paddingBottom: 5,
   },
+  friendRequestButton: {
+    ...Fonts.style.h2,
+    color: Colors.primary,
+    padding: 10,
+    textAlign: 'center',
+  },
+  friendRequestContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  friendRequestTitle: {
+    ...Fonts.style.h2,
+    color: Colors.primary,
+    paddingTop: 15,
+    textAlign: 'center',
+  },
   headerButton: {
     ...Fonts.style.h2,
     color: Colors.primary,
