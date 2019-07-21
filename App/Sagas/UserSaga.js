@@ -1,7 +1,6 @@
 import { put, call } from 'redux-saga/effects'
 import UserActions from 'App/Stores/User/Actions'
 import { userService } from 'App/Services/UserService'
-
 /**
  * A saga can contain multiple functions.
  *

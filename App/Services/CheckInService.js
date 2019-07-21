@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import Parse from 'parse/react-native'
 import { PARSE_URL, PARSE_CLIENT_KEY, PARSE_APP_ID } from 'react-native-dotenv'
-
+import DeviceInfo from 'react-native-device-info'
 Parse.setAsyncStorage(AsyncStorage)
 Parse.initialize(PARSE_APP_ID, PARSE_CLIENT_KEY)
 Parse.serverURL = PARSE_URL
@@ -82,19 +82,22 @@ function listCheckIns() {
 
 function postCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
-  return new Promise(function(resolve, reject) {
-    checkIn.set({ emotions: daCheckIn.emotions })
-    checkIn.save().then(
-      (checkIn) => {
-        // Execute any logic that should take place after the object is saved.
-        resolve(checkIn.toJSON())
-      },
-      (error) => {
-        // Execute any logic that should take place if the save fails.
-        // error is a Parse.Error with an error code and message.
-        reject(error.message)
-      }
-    )
+  DeviceInfo.getUniqueID().then((deviceId) => {
+    return new Promise(function(resolve, reject) {
+      checkIn.set({ emotions: daCheckIn.emotions })
+      checkIn.set({ deviceId: deviceId })
+      checkIn.save().then(
+        (checkIn) => {
+          // Execute any logic that should take place after the object is saved.
+          resolve(checkIn.toJSON())
+        },
+        (error) => {
+          // Execute any logic that should take place if the save fails.
+          // error is a Parse.Error with an error code and message.
+          reject(error.message)
+        }
+      )
+    })
   })
 }
 
