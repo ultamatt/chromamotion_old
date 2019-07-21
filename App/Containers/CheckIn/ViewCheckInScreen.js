@@ -33,7 +33,7 @@ class ViewCheckInScreen extends React.Component {
       )
     } else {
       let emotions = checkIn.emotions;
-      let emotionElements = emotions.emotions.filter((emotion) => {
+      let emotionElements = emotions.filter((emotion) => {
         return emotion.selected ? emotion : null
       }).map((emotion) => {
         return (

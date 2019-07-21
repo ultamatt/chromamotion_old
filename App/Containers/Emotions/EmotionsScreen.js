@@ -29,13 +29,18 @@ class EmotionsScreen extends React.Component {
   }
 
   onSaveEmotions = () => {
-    const { emotions, postCheckIn, navigation } = this.props;
-    postCheckIn({ emotions });
+    const { emotions, postCheckIn, navigation, user } = this.props;
+    let userId = null;
+    if(user.objectId != null){
+      userId = user.objectId
+    }
+    postCheckIn(emotions, userId);
     navigation.navigate('MainScreen')
   }
 
   render() {
     const { onSaveEmotions } = this;
+    const { user } = this.props;
     return (
       <View style={Style.container}>
         <Text style={Style.header}>How are you feeling?</Text>
@@ -69,6 +74,7 @@ EmotionsScreen.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    user:state.user.user,
     emotions:state.checkIn.emotions,
     checkInIsLoading: state.checkIn.checkInIsLoading,
     checkInErrorMessage: state.checkIn.checkInErrorMessage,
@@ -76,7 +82,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  postCheckIn: (obj) => dispatch(CheckInActions.postCheckIn(obj)),
+  postCheckIn: (emotions, userId) => dispatch(CheckInActions.postCheckIn(emotions, userId)),
   selectEmotion: (emotionName) => dispatch(CheckInActions.selectEmotion(emotionName)),
 })
 

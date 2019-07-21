@@ -13,7 +13,7 @@ export const selectEmotionSuccess = (state, { emotionName }) => {
     ...state,
     emotions: [
       ...state.emotions.map((emotion) => {
-        if (emotion.name == emotionName.emotionName) {
+        if (emotion.name === emotionName.emotionName) {
           emotion.selected = !emotion.selected
         }
         return emotion

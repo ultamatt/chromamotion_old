@@ -82,22 +82,21 @@ function listCheckIns() {
 
 function postCheckIn(daCheckIn) {
   const checkIn = new CheckIn()
-  DeviceInfo.getUniqueID().then((deviceId) => {
-    return new Promise(function(resolve, reject) {
-      checkIn.set({ emotions: daCheckIn.emotions })
-      checkIn.set({ deviceId: deviceId })
-      checkIn.save().then(
-        (checkIn) => {
-          // Execute any logic that should take place after the object is saved.
-          resolve(checkIn.toJSON())
-        },
-        (error) => {
-          // Execute any logic that should take place if the save fails.
-          // error is a Parse.Error with an error code and message.
-          reject(error.message)
-        }
-      )
-    })
+  return new Promise(function(resolve, reject) {
+    checkIn.set({ userId: daCheckIn.userId })
+    checkIn.set({ emotions: daCheckIn.emotions })
+    checkIn.set({ deviceId: DeviceInfo.getUniqueID() })
+    checkIn.save().then(
+      (checkIn) => {
+        // Execute any logic that should take place after the object is saved.
+        resolve(checkIn.toJSON())
+      },
+      (error) => {
+        // Execute any logic that should take place if the save fails.
+        // error is a Parse.Error with an error code and message.
+        reject(error.message)
+      }
+    )
   })
 }
 

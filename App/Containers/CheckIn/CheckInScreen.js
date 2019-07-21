@@ -34,7 +34,7 @@ class CheckInScreen extends React.Component {
       }).map((checkIn, index) => {
         let colorArray = [];
         if(checkIn.emotions != null){
-          colorArray = checkIn.emotions.emotions.filter((emotion) => {
+          colorArray = checkIn.emotions.filter((emotion) => {
             return emotion.selected ? emotion : null;
           }).map((emotion) => {
             return emotion.color

@@ -18,13 +18,12 @@ A project in React native to help users identify, track, and share their feeling
   - [X] It's a 100% horizontal bar button that's the spectrum of how you felt.
   - [X] New CheckIN bar above all checkIns
 - [X] When you select a checkin, you're brought to a details page of it.
-- [ ] When saving a checkin, associate the device's UUID
-  - [ ] Likely use https://github.com/lazywei/react-native-device-uuid
+- [X] When saving a checkin, associate the device's UUID
 - [ ] When saving a checkin, associate the logged in user, if there is one
 
 ### Check-in details
 - [X] See the details of a check-in
-- [ ] Delete a checkin
+- [X] Delete a checkin
 
 ### Login/Sign up and Back End as a Service
 - [X] Integrate with an Authorication provider that also offers back end as a service.
@@ -45,7 +44,10 @@ A project in React native to help users identify, track, and share their feeling
 ### About Screen
 - [ ] Create a place to link back to my repo, and personal website
 
-#### TheCodingMachine React Native boilerplate
+## Notes For Future Self
+- If the pod file is acting up try. `pod deintegrate chromamotion.xcodeproj` to remove all the stuff, then `pod install` to start over.
+
+### TheCodingMachine React Native boilerplate
 Big thanks to TheCodingMachine for this boilerplate which I've built off of. Credit here:
 This project is a [React Native](https://facebook.github.io/react-native/) boilerplate that can be used to kickstart a mobile application.
 

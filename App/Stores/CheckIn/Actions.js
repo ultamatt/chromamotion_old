@@ -51,7 +51,7 @@ const { Types, Creators } = createActions({
   // An error occurred
   listCheckInsFailure: ['errorMessage'],
 
-  postCheckIn: ['emotions'],
+  postCheckIn: ['emotions', 'userId'],
   // The operation has started and is loading
   postCheckInLoading: null,
   // CheckIn informations were successfully posted
